@@ -1,0 +1,3404 @@
+[
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleKeyboardUIMode",
+    "value": "0",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "2"
+    ],
+    "category": "Keyboard",
+    "sources": [
+      "https://macos-defaults.com/keyboard/applekeyboarduimode.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Keyboard navigation for controls: 0=text boxes only, 3=all controls (Tab moves focus)."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "ApplePressAndHoldEnabled",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Keyboard",
+    "sources": [
+      "https://macos-defaults.com/keyboard/applepressandholdenabled.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "When true, press-and-hold shows accent characters; false enables key repeat."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleShowAllExtensions",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Finder",
+    "sources": [
+      "https://macos-defaults.com/finder/appleshowallextensions.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Always show file extensions in Finder and Open/Save dialogs."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleSpacesSwitchOnActivate",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Mission Control",
+    "sources": null,
+    "description": "Automatically switch to a Space that has open windows for the app you activate."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSAutomaticPeriodSubstitutionEnabled",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Keyboard",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Insert a full stop when you double-tap the space bar."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSCloseAlwaysConfirmsChanges",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Miscellaneous",
+    "sources": null,
+    "description": "Always ask to save changes when closing a document, even if Auto Save is active."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSDocumentSaveNewDocumentsToCloud",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Finder",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Save new documents to iCloud by default instead of the local disk."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSQuitAlwaysKeepsWindow",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Miscellaneous",
+    "sources": null,
+    "description": "When quitting an app, remember and restore open windows the next time it launches (Resume)."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSTableViewDefaultSizeMode",
+    "value": "2",
+    "type": "integer",
+    "all_values": [
+      "1",
+      "2",
+      "3"
+    ],
+    "category": "Finder",
+    "sources": null,
+    "description": "Sidebar icon size across apps: 1=Small, 2=Medium (default), 3=Large."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSToolbarTitleViewRolloverDelay",
+    "value": "0.5",
+    "type": "float",
+    "all_values": [
+      "0.5",
+      "0",
+      "1"
+    ],
+    "category": "Finder",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Delay in seconds before the window title area responds to hover (for toolbar buttons)."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "com.apple.keyboard.fnState",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Keyboard",
+    "sources": null,
+    "description": "Use F1\u2013F12 as standard function keys (true) instead of special media keys (false)."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "com.apple.mouse.linear",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Mouse",
+    "sources": null,
+    "description": "Use linear (true) instead of acceleration-curve (false) tracking for the mouse."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "com.apple.mouse.scaling",
+    "value": "1",
+    "type": "float",
+    "all_values": [
+      "1"
+    ],
+    "category": "Mouse",
+    "sources": null,
+    "description": "Mouse tracking speed multiplier. Typical range 0.0\u20133.0; higher = faster."
+  },
+  {
+    "domain": "com.apple.ActivityMonitor",
+    "key": "IconType",
+    "value": "0",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "2",
+      "3",
+      "5",
+      "6"
+    ],
+    "category": "Activity Monitor",
+    "sources": [
+      "https://macos-defaults.com/activity-monitor/icontype.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Dock icon display: 0=app icon, 1=network, 2=disk, 3=memory, 5=CPU history."
+  },
+  {
+    "domain": "com.apple.ActivityMonitor",
+    "key": "UpdatePeriod",
+    "value": "5",
+    "type": "integer",
+    "all_values": [
+      "1",
+      "2",
+      "5"
+    ],
+    "category": "Activity Monitor",
+    "sources": null,
+    "description": "How often Activity Monitor refreshes its data in seconds. 1=every second, 2=every 2s (default), 5=every 5s."
+  },
+  {
+    "domain": "com.apple.AppleMultitouchTrackpad",
+    "key": "DragLock",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Trackpad",
+    "sources": null,
+    "description": "Lock dragging: keep a drag active after lifting the finger until you tap again."
+  },
+  {
+    "domain": "com.apple.AppleMultitouchTrackpad",
+    "key": "Dragging",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Trackpad",
+    "sources": null,
+    "description": "Enable tap-to-drag on the built-in trackpad without clicking."
+  },
+  {
+    "domain": "com.apple.AppleMultitouchTrackpad",
+    "key": "FirstClickThreshold",
+    "value": "1",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "1",
+      "2"
+    ],
+    "category": "Trackpad",
+    "sources": null,
+    "description": "Click force threshold for a normal click: 0=light, 1=medium, 2=firm."
+  },
+  {
+    "domain": "com.apple.AppleMultitouchTrackpad",
+    "key": "TrackpadThreeFingerDrag",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Trackpad",
+    "sources": null,
+    "description": "Use a three-finger swipe to drag windows and items."
+  },
+  {
+    "domain": "com.apple.CloudSubscriptionFeatures.optIn",
+    "key": "545129924",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Miscellaneous",
+    "sources": null,
+    "description": "Opt-in flag for a specific iCloud subscription feature (id 545129924)."
+  },
+  {
+    "domain": "com.apple.HIToolbox",
+    "key": "AppleFnUsageType",
+    "value": "0",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "1",
+      "2",
+      "3"
+    ],
+    "category": "Keyboard",
+    "sources": null,
+    "description": "Fn/Globe key behaviour: 0=do nothing, 1=change input source, 2=show emoji picker, 3=start dictation."
+  },
+  {
+    "domain": "com.apple.LaunchServices",
+    "key": "LSQuarantine",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Miscellaneous",
+    "sources": null,
+    "description": "Apply the quarantine flag to downloaded files, triggering the 'Are you sure?' Gatekeeper dialog."
+  },
+  {
+    "domain": "com.apple.MobileSMS",
+    "key": "MMSShowSubject",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Messages",
+    "sources": null,
+    "description": "Show the Subject field in the Messages compose window for MMS messages."
+  },
+  {
+    "domain": "com.apple.Music",
+    "key": "userWantsPlaybackNotifications",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Miscellaneous",
+    "sources": null,
+    "description": "Show Now Playing notifications from Music in the notification center."
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "ShowFullURLInSmartSearchField",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Safari",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Display the full URL (including scheme) in the Smart Search field."
+  },
+  {
+    "domain": "com.apple.Terminal",
+    "key": "FocusFollowsMouse",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Mouse",
+    "sources": null,
+    "description": "Hover over a Terminal window to focus it without clicking first."
+  },
+  {
+    "domain": "com.apple.TextEdit",
+    "key": "RichText",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "TextEdit",
+    "sources": [
+      "https://macos-defaults.com/textedit/richtext.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Open new documents in Rich Text (1) or Plain Text (0) mode."
+  },
+  {
+    "domain": "com.apple.TextEdit",
+    "key": "SmartQuotes",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "TextEdit",
+    "sources": null,
+    "description": "Replace straight quotes with typographic (curly) quotes automatically in TextEdit."
+  },
+  {
+    "domain": "com.apple.TimeMachine",
+    "key": "DoNotOfferNewDisksForBackup",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Time Machine",
+    "sources": [
+      "https://macos-defaults.com/time-machine/donotoffernewdisksforbackup.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Do not prompt to use newly attached disks as Time Machine backup volumes."
+  },
+  {
+    "domain": "com.apple.appleseed.FeedbackAssistant",
+    "key": "Autogather",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Feedback Assistant",
+    "sources": [
+      "https://macos-defaults.com/feedback-assistant/autogather.html"
+    ],
+    "description": "Automatically gather diagnostic data when submitting feedback via Feedback Assistant."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "autohide",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Dock",
+    "sources": [
+      "https://macos-defaults.com/dock/autohide.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Automatically hide and show the Dock when the cursor is not near it."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "autohide-delay",
+    "value": "0.2",
+    "type": "float",
+    "all_values": [
+      "0.2",
+      "0"
+    ],
+    "category": "Dock",
+    "sources": [
+      "https://macos-defaults.com/dock/autohide-delay.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Seconds to wait before the auto-hidden Dock reappears. 0 = instant."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "autohide-time-modifier",
+    "value": "0.5",
+    "type": "float",
+    "all_values": [
+      "0.5",
+      "2",
+      "0"
+    ],
+    "category": "Dock",
+    "sources": [
+      "https://macos-defaults.com/dock/autohide-time-modifier.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Duration of the hide/show animation in seconds. 0 = instant."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "enable-spring-load-actions-on-all-items",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Miscellaneous",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Enable spring loading (drag-hover to activate) on all Dock items."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "expose-group-apps",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Mission Control",
+    "sources": null,
+    "description": "Group windows by application in Mission Control (same as expose-group-by-app on newer macOS)."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "mineffect",
+    "value": "genie",
+    "type": "string",
+    "all_values": [
+      "genie",
+      "scale",
+      "suck"
+    ],
+    "category": "Dock",
+    "sources": [
+      "https://macos-defaults.com/dock/mineffect.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Window minimise animation: genie (default), scale, or suck."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "mru-spaces",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Mission Control",
+    "sources": [
+      "https://macos-defaults.com/mission-control/mru-spaces.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Automatically reorder Spaces based on most recent use."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "orientation",
+    "value": "bottom",
+    "type": "string",
+    "all_values": [
+      "left",
+      "bottom",
+      "right"
+    ],
+    "category": "Dock",
+    "sources": [
+      "https://macos-defaults.com/dock/orientation.html"
+    ],
+    "description": "Position of the Dock on screen: bottom, left, or right."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "scroll-to-open",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Dock",
+    "sources": null,
+    "description": "Scroll up on a Dock icon to open Expos\u00e9 for that application's windows."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "show-recents",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Dock",
+    "sources": [
+      "https://macos-defaults.com/dock/show-recents.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show a section of recently used apps in the Dock."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "static-only",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Dock",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show only the apps explicitly pinned to the Dock, not all running apps."
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "tilesize",
+    "value": "48",
+    "type": "integer",
+    "all_values": [
+      "36",
+      "48"
+    ],
+    "category": "Dock",
+    "sources": [
+      "https://macos-defaults.com/dock/tilesize.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Size of Dock item icons in pixels (16\u2013128)."
+  },
+  {
+    "domain": "com.apple.dt.Xcode",
+    "key": "IDEAdditionalCounterpartSuffixes",
+    "value": "ViewModel",
+    "type": "array",
+    "all_values": [
+      "ViewModel",
+      "Router"
+    ],
+    "category": "Xcode",
+    "sources": null,
+    "description": "Extra filename suffixes Xcode considers as counterpart files (e.g. ViewModel)."
+  },
+  {
+    "domain": "com.apple.dt.Xcode",
+    "key": "ShowBuildOperationDuration",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Xcode",
+    "sources": null,
+    "description": "Display the total build time in the Xcode activity viewer."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "AppleShowAllFiles",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Finder",
+    "sources": [
+      "https://macos-defaults.com/finder/appleshowallfiles.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show hidden files (dotfiles) in Finder windows. Cmd+Shift+. also toggles this."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "CreateDesktop",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Desktop",
+    "sources": null,
+    "description": "Show icons on the Desktop (false hides all desktop icons while keeping files intact)."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "FXDefaultSearchScope",
+    "value": "SCev",
+    "type": "string",
+    "all_values": [
+      "SCcf",
+      "SCsp",
+      "SCev"
+    ],
+    "category": "Finder",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Default search scope: SCcf=Current Folder, SCev=Entire Mac, SCsp=Shared."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "FXEnableExtensionChangeWarning",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Finder",
+    "sources": [
+      "https://macos-defaults.com/finder/fxenableextensionchangewarning.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show a warning dialog when changing a file's extension."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "FXPreferredViewStyle",
+    "value": "icnv",
+    "type": "string",
+    "all_values": [
+      "clmv",
+      "Nlsv",
+      "glyv",
+      "icnv"
+    ],
+    "category": "Finder",
+    "sources": [
+      "https://macos-defaults.com/finder/fxpreferredviewstyle.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Default Finder window view: Nlsv=List, icnv=Icon, clmv=Column, glyv=Gallery."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "FXRemoveOldTrashItems",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Finder",
+    "sources": null,
+    "description": "Automatically remove items from the Trash after 30 days."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "FinderSpawnTab",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Finder",
+    "sources": null,
+    "description": "Open new Finder locations in a tab rather than a new window."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "QuitMenuItem",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Finder",
+    "sources": [
+      "https://macos-defaults.com/finder/quitmenuitem.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Add a Quit menu item to Finder (\u2318Q). Hiding the desktop also hides icons."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "ShowExternalHardDrivesOnDesktop",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Desktop",
+    "sources": [
+      "https://macos-defaults.com/desktop/showexternalharddrivesondesktop.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show external hard drives and servers as icons on the Desktop."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "ShowHardDrivesOnDesktop",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Desktop",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show internal hard drives as icons on the Desktop."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "ShowMountedServersOnDesktop",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Desktop",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show mounted network servers as icons on the Desktop."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "ShowPathbar",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Finder",
+    "sources": [
+      "https://macos-defaults.com/finder/showpathbar.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show the path bar at the bottom of Finder windows."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "ShowRemovableMediaOnDesktop",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Desktop",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show removable media (USB, SD cards) as icons on the Desktop."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "ShowStatusBar",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Finder",
+    "sources": [
+      "https://macos-defaults.com/finder/showstatusbar.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show the status bar at the bottom of Finder windows."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "_FXEnableColumnAutoSizing",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Finder",
+    "sources": null,
+    "description": "Automatically resize columns in Finder column view to fit their content."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "_FXSortFoldersFirst",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Finder",
+    "sources": [
+      "https://macos-defaults.com/finder/fxsortfoldersfirst.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Keep folders at the top when sorting by name in Finder."
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "_FXSortFoldersFirstOnDesktop",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Desktop",
+    "sources": null,
+    "description": "Keep folders sorted before files on the Desktop (separate from Finder windows)."
+  },
+  {
+    "domain": "com.apple.helpviewer",
+    "key": "DevMode",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Miscellaneous",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show Help Viewer windows as normal windows instead of floating on top."
+  },
+  {
+    "domain": "com.apple.iphonesimulator",
+    "key": "ScreenShotSaveLocation",
+    "value": "~/Pictures/Screenshots",
+    "type": "string",
+    "all_values": [
+      "~/Pictures/Screenshots",
+      "~/Pictures/Simulator Screenshots"
+    ],
+    "category": "Simulator",
+    "sources": null,
+    "description": "Folder path where iOS Simulator screenshots are saved."
+  },
+  {
+    "domain": "com.apple.menuextra.clock",
+    "key": "DateFormat",
+    "value": "EEE d MMM HH:mm:ss",
+    "type": "string",
+    "all_values": [
+      "EEE d MMM HH:mm:ss",
+      "EEE h:mm:ss",
+      "EEE HH:mm:ss"
+    ],
+    "category": "Menu Bar",
+    "sources": null,
+    "description": "Format string for the menu bar clock, e.g. 'EEE d MMM HH:mm:ss'."
+  },
+  {
+    "domain": "com.apple.menuextra.clock",
+    "key": "FlashDateSeparators",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Menu Bar",
+    "sources": null,
+    "description": "Flash the colon separators in the menu bar clock every second."
+  },
+  {
+    "domain": "com.apple.screencapture",
+    "key": "disable-shadow",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "false",
+      "true"
+    ],
+    "category": "Screenshots",
+    "sources": [
+      "https://macos-defaults.com/screenshots/disable-shadow.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Remove the drop shadow from window screenshots."
+  },
+  {
+    "domain": "com.apple.screencapture",
+    "key": "include-date",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Screenshots",
+    "sources": [
+      "https://macos-defaults.com/screenshots/include-date.html"
+    ],
+    "description": "Append date and time to screenshot filenames."
+  },
+  {
+    "domain": "com.apple.screencapture",
+    "key": "location",
+    "value": "~/Desktop",
+    "type": "string",
+    "all_values": [
+      "~/Desktop",
+      "~/Pictures"
+    ],
+    "category": "Screenshots",
+    "sources": [
+      "https://macos-defaults.com/screenshots/location.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Folder path where screenshots are saved."
+  },
+  {
+    "domain": "com.apple.screencapture",
+    "key": "show-thumbnail",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Screenshots",
+    "sources": [
+      "https://macos-defaults.com/screenshots/show-thumbnail.html"
+    ],
+    "description": "Show the floating thumbnail preview after taking a screenshot (macOS Mojave+)."
+  },
+  {
+    "domain": "com.apple.screencapture",
+    "key": "type",
+    "value": "png",
+    "type": "string",
+    "all_values": [
+      "png",
+      "jpg",
+      "heic"
+    ],
+    "category": "Screenshots",
+    "sources": [
+      "https://macos-defaults.com/screenshots/type.html"
+    ],
+    "description": "File format for screenshots: png (default), jpg, tiff, pdf, bmp, gif, heic."
+  },
+  {
+    "domain": "com.apple.spaces",
+    "key": "spans-displays",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Mission Control",
+    "sources": null,
+    "description": "Allow Mission Control Spaces to span across all displays."
+  },
+  {
+    "domain": "com.apple.universalaccess",
+    "key": "showWindowTitlebarIcons",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Finder",
+    "sources": null,
+    "description": "Always show proxy icons in window title bars instead of on hover only."
+  },
+  {
+    "domain": "kCFPreferencesAnyApplication",
+    "key": "TSMLanguageIndicatorEnabled",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Keyboard",
+    "sources": null,
+    "description": "Show the input source indicator (language badge) when switching keyboard layouts."
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSRequiresAquaSystemAppearance",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Force an app (or the system) to use the Aqua (light) appearance even in Dark Mode.",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleEnableMenuBarTransparency",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Enable or disable transparency in the menu bar.",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.menuextra.battery",
+    "key": "ShowPercent",
+    "value": "NO",
+    "type": "string",
+    "all_values": [
+      "YES",
+      "NO"
+    ],
+    "description": "Show battery percentage in the menu bar.",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.menuextra.battery",
+    "key": "ShowTime",
+    "value": "YES",
+    "type": "string",
+    "all_values": [
+      "YES",
+      "NO"
+    ],
+    "description": "Show remaining battery time (h:mm) in the menu bar.",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleShowScrollBars",
+    "value": "Always",
+    "type": "string",
+    "all_values": [
+      "Automatic",
+      "WhenScrolling",
+      "Always"
+    ],
+    "description": "When to show scroll bars: Always, WhenScrolling, or Automatic (based on input device).",
+    "category": "General",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSNavPanelExpandedStateForSaveMode",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Always expand the Save dialog to show full folder navigation.",
+    "category": "General",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSNavPanelExpandedStateForSaveMode2",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Always expand secondary Save dialogs (e.g., in sheet sub-panels).",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "PMPrintingExpandedStateForPrint",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Always expand the Print dialog to show full options.",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "PMPrintingExpandedStateForPrint2",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Always expand secondary Print dialogs.",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.print.PrintingPrefs",
+    "key": "Quit When Finished",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Quit the Printer app automatically when all print jobs are complete.",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.SoftwareUpdate",
+    "key": "ScheduleFrequency",
+    "value": "1",
+    "type": "integer",
+    "all_values": null,
+    "description": "How often to check for software updates (in days). 1=daily.",
+    "category": "General",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSAutomaticQuoteSubstitutionEnabled",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Replace straight quotes with typographic ('smart') quotes automatically.",
+    "category": "General",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSAutomaticDashSubstitutionEnabled",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Replace double hyphens with em dashes automatically.",
+    "category": "General",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSAutomaticSpellingCorrectionEnabled",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Automatically correct spelling mistakes as you type.",
+    "category": "General",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSTextShowsControlCharacters",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Display ASCII control characters using caret notation in standard text views.",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSAutomaticWindowAnimationsEnabled",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Animate opening and closing of windows.",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSWindowResizeTime",
+    "value": "0.001",
+    "type": "float",
+    "all_values": null,
+    "description": "Duration of the window resize animation in seconds. 0.001 = nearly instant.",
+    "category": "General",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSQuitAlwaysKeepsWindows",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "When true, apps remember open windows on relaunch (Resume feature).",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.loginwindow",
+    "key": "TALLogoutSavesState",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Save window state on logout so apps reopen at next login.",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.loginwindow",
+    "key": "LoginwindowLaunchesRelaunchApps",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Relaunch apps that were open at last logout when logging in again.",
+    "category": "General",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.BluetoothAudioAgent",
+    "key": "Apple Bitpool Min (editable)",
+    "value": "40",
+    "type": "integer",
+    "all_values": null,
+    "description": "Minimum Bluetooth audio bitpool value. Higher values improve quality; 40 is a good minimum.",
+    "category": "Input",
+    "sources": null
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "KeyRepeat",
+    "value": "0",
+    "type": "integer",
+    "all_values": null,
+    "description": "Key repeat rate. Smaller values are faster. 1=fast, 6=normal default.",
+    "category": "Input",
+    "sources": [
+      "https://macos-defaults.com/keyboard/keyrepeat.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "com.apple.mouse.tapBehavior",
+    "value": "1",
+    "type": "integer",
+    "all_values": null,
+    "description": "Tap-to-click: 0=disabled, 1=enabled.",
+    "category": "Input",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.driver.AppleBluetoothMultitouch.trackpad",
+    "key": "TrackpadCornerSecondaryClick",
+    "value": "2",
+    "type": "integer",
+    "all_values": null,
+    "description": "Map trackpad corner to secondary (right) click: 0=off, 2=bottom-right.",
+    "category": "Input",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.universalaccess",
+    "key": "closeViewScrollWheelToggle",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Use the scroll gesture with a modifier key to zoom in and out.",
+    "category": "Input",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.universalaccess",
+    "key": "HIDScrollZoomModifierMask",
+    "value": "262144",
+    "type": "integer",
+    "all_values": null,
+    "description": "Modifier key bitmask for scroll-to-zoom. 262144=Control.",
+    "category": "Input",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.universalaccess",
+    "key": "closeViewZoomFollowsFocus",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Keep the zoomed view centred on the keyboard focus.",
+    "category": "Input",
+    "sources": null
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleFontSmoothing",
+    "value": "2",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "1",
+      "2",
+      "3"
+    ],
+    "description": "Subpixel font rendering on non-Apple LCDs: 0=off, 1=light, 2=medium, 3=strong.",
+    "category": "Screen",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.screensaver",
+    "key": "askForPassword",
+    "value": "1",
+    "type": "integer",
+    "all_values": null,
+    "description": "Require a password to unlock the screen after the screen saver or sleep. 1=yes, 0=no.",
+    "category": "Screen",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.screensaver",
+    "key": "askForPasswordDelay",
+    "value": "0",
+    "type": "integer",
+    "all_values": null,
+    "description": "Seconds after the screen saver starts before a password is required. 0=immediately.",
+    "category": "Screen",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "NewWindowTarget",
+    "value": "PfDe",
+    "type": "string",
+    "all_values": [
+      "PfDe",
+      "PfHm",
+      "PfDo",
+      "PfVo",
+      "PfLo"
+    ],
+    "description": "Default folder for new Finder windows: PfDe=Desktop, PfHm=Home, PfDo=Documents, PfLo=Custom.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "NewWindowTargetPath",
+    "value": "file://${HOME}/",
+    "type": "string",
+    "all_values": null,
+    "description": "File URL of the folder shown in new Finder windows when NewWindowTarget is PfLo.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "DisableAllAnimations",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Disable all Finder window and Get Info animations.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "QLEnableTextSelection",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Allow text selection in Quick Look preview panels.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.desktopservices",
+    "key": "DSDontWriteNetworkStores",
+    "value": "TRUE",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Prevent Finder from creating .DS_Store metadata files on network volumes.",
+    "category": "Finder",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.desktopservices",
+    "key": "DSDontWriteUSBStores",
+    "value": "TRUE",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Prevent Finder from creating .DS_Store metadata files on USB/removable volumes.",
+    "category": "Finder",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.frameworks.diskimages",
+    "key": "skip-verify",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Skip checksum verification when mounting disk images.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.frameworks.diskimages",
+    "key": "skip-verify-locked",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Skip verification for locked (read-only) disk images.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.frameworks.diskimages",
+    "key": "skip-verify-remote",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Skip verification for disk images loaded from remote locations.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.frameworks.diskimages",
+    "key": "auto-open-ro-root",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Automatically open a Finder window for read-only disk image mounts.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.frameworks.diskimages",
+    "key": "auto-open-rw-root",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Automatically open a Finder window for read-write disk image mounts.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "OpenWindowForNewRemovableDisk",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Open a new Finder window automatically when a removable disk is mounted.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "_FXShowPosixPathInTitle",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Display the full POSIX file path in the Finder window title bar.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "WarnOnEmptyTrash",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Show a confirmation dialog before emptying the Trash.",
+    "category": "Finder",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "EmptyTrashSecurely",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Securely overwrite file data when emptying the Trash (slower).",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.NetworkBrowser",
+    "key": "BrowseAllInterfaces",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Enable AirDrop over Ethernet and on Macs not officially supporting AirDrop.",
+    "category": "Finder",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "show-process-indicators",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Show small indicator dots below icons of open applications.",
+    "category": "Dock",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "launchanim",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Animate application icons when they are launched from the Dock.",
+    "category": "Dock",
+    "sources": [
+      "https://macos-defaults.com/dock/launchanim.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "no-glass",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Use the flat 2-D Dock instead of the 3-D shelf (macOS 10.6 era).",
+    "category": "Dock",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "showhidden",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Display icons of hidden applications as translucent in the Dock.",
+    "category": "Dock",
+    "sources": [
+      "https://macos-defaults.com/dock/showhidden.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "itunes-notifications",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Show Music/iTunes track change notifications in the Dock.",
+    "category": "Dock",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "mouse-over-hilte-stack",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Highlight Dock stack items on mouse-over in grid view.",
+    "category": "Dock",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "expose-animation-duration",
+    "value": "0.3",
+    "type": "float",
+    "all_values": null,
+    "description": "Duration of the Mission Control (Expos\u00e9) spread animation in seconds.",
+    "category": "Dock",
+    "sources": [
+      "https://macos-defaults.com/mission-control/expose-animation-duration.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "wvous-tl-corner",
+    "value": "2",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "description": "Action for the top-left hot corner. Values: 0=nothing, 2=Mission Control, 3=App Windows, 4=Desktop, 5=Screen Saver, 10=Sleep Display, 11=Launchpad, 12=Notification Center, 13=Lock Screen, 14=Quick Note.",
+    "category": "Dock",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "wvous-tl-modifier",
+    "value": "0",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "131072",
+      "262144",
+      "524288",
+      "1048576"
+    ],
+    "description": "Modifier key required for top-left hot corner. 0=none, 131072=Shift, 262144=Control, 524288=Option, 1048576=Command.",
+    "category": "Dock",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "wvous-tr-corner",
+    "value": "4",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "description": "Action for the top-right hot corner (same values as wvous-tl-corner).",
+    "category": "Dock",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "wvous-tr-modifier",
+    "value": "0",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "131072",
+      "262144",
+      "524288",
+      "1048576"
+    ],
+    "description": "Modifier key required for top-right hot corner (same values as wvous-tl-modifier).",
+    "category": "Dock",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "wvous-bl-corner",
+    "value": "5",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "description": "Action for the bottom-left hot corner (same values as wvous-tl-corner).",
+    "category": "Dock",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "wvous-bl-modifier",
+    "value": "0",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "131072",
+      "262144",
+      "524288",
+      "1048576"
+    ],
+    "description": "Modifier key required for bottom-left hot corner (same values as wvous-tl-modifier).",
+    "category": "Dock",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "ShowFavoritesBar",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Show the Favourites / Bookmarks Bar below the address bar.",
+    "category": "Safari",
+    "sources": [
+      "https://macos-defaults.com/safari/showfavoritesbar.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "HomePage",
+    "value": "about:blank",
+    "type": "string",
+    "all_values": null,
+    "description": "URL of Safari's home page (about:blank for fastest load).",
+    "category": "Safari",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "AutoOpenSafeDownloads",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Automatically open files considered safe after downloading.",
+    "category": "Safari",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "ShowSidebarInTopSites",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Show the sidebar panel in the Top Sites view.",
+    "category": "Safari",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "DebugSnapshotsUpdatePolicy",
+    "value": "2",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "1",
+      "2"
+    ],
+    "description": "Thumbnail refresh policy for History and Top Sites. 2 = disabled.",
+    "category": "Safari",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "IncludeInternalDebugMenu",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Show the internal Debug menu in the Safari menu bar.",
+    "category": "Safari",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "FindOnPageMatchesWordStartsOnly",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Find-on-page matches word starts only. Set false for 'contains' matching.",
+    "category": "Safari",
+    "sources": null
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "WebKitDeveloperExtras",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Add 'Inspect Element' to the context menu in all WebKit web views.",
+    "category": "Safari",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "IncludeDevelopMenu",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Show the Develop menu in Safari (enables Web Inspector and more).",
+    "category": "Safari",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "WebKitDeveloperExtrasEnabledPreferenceKey",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Enable WebKit developer extras (Web Inspector) in Safari.",
+    "category": "Safari",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Enable WebKit2 developer extras for all content pages in Safari.",
+    "category": "Safari",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "WebContinuousSpellCheckingEnabled",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Enable continuous spell checking while typing in Safari.",
+    "category": "Safari",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "WebAutomaticSpellingCorrectionEnabled",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Enable automatic spelling correction in Safari web forms.",
+    "category": "Safari",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.mail",
+    "key": "DisableInlineAttachmentViewing",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Show email attachments as icons instead of displaying them inline.",
+    "category": "Mail",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.Mail",
+    "key": "DisableReplyAnimations",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Disable the reply animation in Mail.",
+    "category": "Mail",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.Mail",
+    "key": "DisableSendAnimations",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Disable the send animation in Mail.",
+    "category": "Mail",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.mail",
+    "key": "AddressesIncludeNameOnPasteboard",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "When true, copied addresses include the display name; false = address only.",
+    "category": "Mail",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.iTunes",
+    "key": "disablePingSidebar",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Hide the Ping sidebar in iTunes (legacy, macOS 10.6\u201310.9 era).",
+    "category": "iTunes",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.iTunes",
+    "key": "disablePing",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Disable all Ping social features in iTunes (legacy).",
+    "category": "iTunes",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.addressbook",
+    "key": "ABShowDebugMenu",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Show the Debug menu in Contacts (Address Book).",
+    "category": "Miscellaneous",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.iCal",
+    "key": "IncludeDebugMenu",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Show the Debug menu in Calendar (iCal).",
+    "category": "Miscellaneous",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.terminal",
+    "key": "StringEncodings",
+    "value": "4",
+    "type": "array",
+    "all_values": null,
+    "description": "Character encodings available in Terminal. Array of CFStringEncoding values; 4=UTF-8.",
+    "category": "Miscellaneous",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.terminal",
+    "key": "FocusFollowsMouse",
+    "value": "true #",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Hover over a Terminal window to type in it without clicking first.",
+    "category": "Miscellaneous",
+    "sources": null
+  },
+  {
+    "domain": "org.x.X11",
+    "key": "wm_ffm",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Focus-follows-mouse for X11 (XQuartz) windows.",
+    "category": "Miscellaneous",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.dashboard",
+    "key": "devmode",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Dashboard developer mode: widgets can be dragged to and kept on the desktop.",
+    "category": "Miscellaneous",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.reminders",
+    "key": "RemindersDebugMenu",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "description": "Show the Debug menu in Reminders.",
+    "category": "Miscellaneous",
+    "sources": null
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "minimize-to-application",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://macos-defaults.com/dock/minimize-to-application.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Minimise windows into the app icon rather than as separate Dock items.",
+    "category": "Dock"
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "expose-group-by-app",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Group windows by application in Mission Control (Expos\u00e9).",
+    "category": "Dock"
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "dashboard-in-overlay",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show Dashboard as an overlay instead of a separate Space.",
+    "category": "Dock"
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleHighlightColor",
+    "value": "0.764700 0.976500 0.568600",
+    "type": "string",
+    "all_values": null,
+    "sources": null,
+    "description": "System highlight/accent colour as RGB float string (e.g. '0.764700 0.976500 0.568600' for green).",
+    "category": "General"
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSUseAnimatedFocusRing",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Animate the focus ring (blue highlight) around focused UI elements.",
+    "category": "General"
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSDisableAutomaticTermination",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Prevent inactive apps from being terminated automatically by the OS.",
+    "category": "General"
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSAutomaticCapitalizationEnabled",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Automatically capitalise the first letter of sentences.",
+    "category": "General"
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "com.apple.swipescrolldirection",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://macos-defaults.com/trackpad/swipescrolldirection.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Natural (true) or traditional (false) scroll direction for trackpad and mouse.",
+    "category": "Trackpad"
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "com.apple.springing.enabled",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": null,
+    "description": "Enable spring loading: hover over a folder while dragging to open it.",
+    "category": "Finder"
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "com.apple.springing.delay",
+    "value": "1.0",
+    "type": "float",
+    "all_values": null,
+    "sources": null,
+    "description": "Delay in seconds before spring loading opens a hovered folder.",
+    "category": "Finder"
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "InitialKeyRepeat",
+    "value": "25",
+    "type": "integer",
+    "all_values": [
+      "10",
+      "15",
+      "25",
+      "50",
+      "68",
+      "100"
+    ],
+    "sources": [
+      "https://macos-defaults.com/keyboard/initialkeyrepeat.html",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Delay before key repeat starts (in units of 15ms). 15=short, 25=normal default.",
+    "category": "Keyboard"
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "UniversalSearchEnabled",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Send search queries to Apple for Spotlight Suggestions in Safari.",
+    "category": "Safari"
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "SuppressSearchSuggestions",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Suppress search suggestions in the Smart Search field.",
+    "category": "Safari"
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "WarnAboutFraudulentWebsites",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show a warning when visiting a suspected phishing or fraudulent website.",
+    "category": "Safari"
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "SendDoNotTrackHTTPHeader",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Send the Do Not Track HTTP header with web requests.",
+    "category": "Safari"
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "AutoFillFromAddressBook",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": null,
+    "description": "Auto-fill web forms using contact information from Contacts.",
+    "category": "Safari"
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "AutoFillPasswords",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Auto-fill saved passwords in web forms.",
+    "category": "Safari"
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "AutoFillCreditCardData",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": null,
+    "description": "Auto-fill saved credit card information in web forms.",
+    "category": "Safari"
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "AutoFillMiscellaneousForms",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": null,
+    "description": "Auto-fill other web forms not covered by other AutoFill categories.",
+    "category": "Safari"
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "InstallExtensionUpdatesAutomatically",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Automatically update Safari extensions.",
+    "category": "Safari"
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "WebKitTabToLinksPreferenceKey",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": null,
+    "description": "Use Tab key to highlight every element on a web page, not just fields.",
+    "category": "Safari"
+  },
+  {
+    "domain": "com.apple.mail",
+    "key": "SpellCheckingBehavior",
+    "value": "InlineSpellCheckingEnabled",
+    "type": "string",
+    "all_values": [
+      "InlineSpellCheckingEnabled",
+      "NoSpellCheckingEnabled"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Mail spell check behaviour: NoSpellCheckingEnabled, InlineSpellCheckingEnabled, etc.",
+    "category": "Mail"
+  },
+  {
+    "domain": "com.apple.SoftwareUpdate",
+    "key": "AutomaticCheckEnabled",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Enable automatic background checks for software updates.",
+    "category": "General"
+  },
+  {
+    "domain": "com.apple.SoftwareUpdate",
+    "key": "AutomaticDownload",
+    "value": "false",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "1"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Automatically download updates in the background.",
+    "category": "General"
+  },
+  {
+    "domain": "com.apple.SoftwareUpdate",
+    "key": "CriticalUpdateInstall",
+    "value": "true",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "1"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Automatically install system data files and security updates.",
+    "category": "General"
+  },
+  {
+    "domain": "com.apple.terminal",
+    "key": "SecureKeyboardEntry",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Prevent other processes from reading Terminal keystrokes (security feature).",
+    "category": "Miscellaneous"
+  },
+  {
+    "domain": "com.apple.Terminal",
+    "key": "ShowLineMarks",
+    "value": "1",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "1"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Show line marks in the Terminal scrollback buffer.",
+    "category": "Miscellaneous"
+  },
+  {
+    "domain": "com.apple.universalaccess",
+    "key": "reduceTransparency",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "description": "Reduce transparency and blur effects in the UI for better readability.",
+    "category": "Screen"
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSScrollAnimationEnabled",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "General",
+    "description": "Enable smooth scrolling animation in scrollable views. Set to false on older hardware if animations feel sluggish.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "NSAutomaticTextCompletionEnabled",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Keyboard",
+    "description": "Show inline auto-complete text suggestions while typing in text fields across macOS apps.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleLanguages",
+    "value": "[\"en\"]",
+    "type": "array",
+    "all_values": null,
+    "category": "General",
+    "description": "Ordered list of preferred system languages. The first entry is the primary language used by the OS and apps.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleLocale",
+    "value": "en_US@currency=USD",
+    "type": "string",
+    "all_values": null,
+    "category": "General",
+    "description": "System locale including region and currency override (e.g. 'en_GB@currency=EUR'). Affects date, time, and number formatting.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleMeasurementUnits",
+    "value": "Inches",
+    "type": "string",
+    "all_values": [
+      "Inches",
+      "Centimeters"
+    ],
+    "category": "General",
+    "description": "Unit of measurement used system-wide for rulers, paper sizes, and other measurements.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleMetricUnits",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "General",
+    "description": "Use metric measurement units system-wide. Set true to use centimetres instead of inches.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "AppleInterfaceStyle",
+    "value": "",
+    "type": "string",
+    "all_values": [
+      "Dark",
+      ""
+    ],
+    "category": "General",
+    "description": "System appearance. Set to 'Dark' to enable Dark Mode. Delete the key (or set empty) to revert to Light Mode.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "mouse-over-hilite-stack",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Dock",
+    "description": "Highlight icons when hovering over a stack in grid-view mode in the Dock.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "wvous-br-corner",
+    "value": "0",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "category": "Dock",
+    "description": "Action triggered when the cursor moves to the bottom-right hot corner. 0=disabled, 2=Mission Control, 3=App Windows, 4=Desktop, 5=Start Screen Saver, 6=Disable Screen Saver, 10=Sleep Display, 11=Launchpad, 12=Notification Center, 13=Lock Screen.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "enterMissionControlByTopWindowDrag",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Dock",
+    "description": "Enter Mission Control by dragging a window to the top of the screen. Disable for Stage Manager-style workflows.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "showAppExposeGestureEnabled",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Dock",
+    "description": "Enable App Expos\u00e9: swipe down with three fingers on the trackpad to show all windows of the current app.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "largesize",
+    "value": "128",
+    "type": "integer",
+    "all_values": null,
+    "category": "Dock",
+    "description": "Maximum icon size in pixels when Dock magnification is enabled. Range: 16\u2013128. Requires 'magnification' to be enabled.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.WindowManager",
+    "key": "EnableStandardClickToShowDesktop",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Window Manager",
+    "description": "Click the wallpaper to show the desktop (hide all windows). Part of macOS Sonoma's 'Click Wallpaper to Reveal Desktop' setting.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.WindowManager",
+    "key": "StandardHideWidgets",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Window Manager",
+    "description": "Hide desktop widgets in standard (non-Stage Manager) mode.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.WindowManager",
+    "key": "StageManagerHideWidgets",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Window Manager",
+    "description": "Hide desktop widgets when Stage Manager is active.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.WindowManager",
+    "key": "EnableTiledWindowMargins",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Window Manager",
+    "description": "Show margins (gaps) between tiled windows and screen edges when using window tiling in macOS Sequoia.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.WindowManager",
+    "key": "EnableTilingByEdgeDrag",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Window Manager",
+    "description": "Enable window tiling by dragging a window to the left or right screen edge (macOS Sequoia).",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.WindowManager",
+    "key": "EnableTopTilingByEdgeDrag",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Window Manager",
+    "description": "Enable full-screen tiling by dragging a window to the top of the screen (macOS Sequoia).",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "WebKitJavaScriptCanOpenWindowsAutomatically",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Safari",
+    "description": "Allow JavaScript to open new windows or tabs automatically (pop-up windows). Disable for better privacy and less intrusive browsing.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults"
+    ]
+  },
+  {
+    "domain": "com.apple.Safari",
+    "key": "ShowOverlayStatusBar",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Safari",
+    "description": "Show a status bar overlay at the bottom of the Safari window displaying hovered link URLs and load status.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.mail",
+    "key": "DisableReplyAnimations",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Mail",
+    "description": "Disable the sliding animation when opening a reply in Mail. Speeds up the mail composition workflow.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.mail",
+    "key": "DisableSendAnimations",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Mail",
+    "description": "Disable the flying envelope animation when sending an email in Mail. Speeds up the send action.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.SoftwareUpdate",
+    "key": "ConfigDataInstall",
+    "value": "1",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "1"
+    ],
+    "category": "General",
+    "description": "Automatically download apps and configurations purchased on other Macs associated with the same Apple ID.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults"
+    ]
+  },
+  {
+    "domain": "com.apple.appstore",
+    "key": "WebKitDeveloperExtras",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "App Store",
+    "description": "Enable WebKit Developer Tools (Web Inspector) in the Mac App Store. Useful for debugging store content.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults"
+    ]
+  },
+  {
+    "domain": "com.apple.appstore",
+    "key": "ShowDebugMenu",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "App Store",
+    "description": "Enable the hidden Debug menu in the Mac App Store for advanced diagnostics and developer testing.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults"
+    ]
+  },
+  {
+    "domain": "com.apple.commerce",
+    "key": "AutoUpdate",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "App Store",
+    "description": "Automatically update apps downloaded from the Mac App Store when updates become available.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults"
+    ]
+  },
+  {
+    "domain": "com.apple.commerce",
+    "key": "AutoUpdateRestartRequired",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "App Store",
+    "description": "Allow the App Store to automatically restart the Mac when a macOS update requires a reboot.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/SixArm/macos-defaults/blob/main/macos-defaults"
+    ]
+  },
+  {
+    "domain": "com.apple.screencapture",
+    "key": "target",
+    "value": "file",
+    "type": "string",
+    "all_values": [
+      "file",
+      "clipboard"
+    ],
+    "category": "Screenshots",
+    "description": "Default destination for screenshots. 'file' saves to disk at the configured location; 'clipboard' copies directly to the clipboard.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6",
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults"
+    ]
+  },
+  {
+    "domain": "com.apple.ActivityMonitor",
+    "key": "ShowCategory",
+    "value": "0",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "1",
+      "2",
+      "5",
+      "100"
+    ],
+    "category": "Activity Monitor",
+    "description": "Which processes to display in Activity Monitor. 0=All Processes, 1=My Processes, 2=System Processes, 5=Selected Processes, 100=Processes with Windows.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.ActivityMonitor",
+    "key": "SortColumn",
+    "value": "CPUUsage",
+    "type": "string",
+    "all_values": [
+      "CPUUsage",
+      "SystemMemory",
+      "CPUTime",
+      "DiskBytesRead",
+      "DiskBytesWritten",
+      "NetworkSentBytes",
+      "NetworkReceivedBytes"
+    ],
+    "category": "Activity Monitor",
+    "description": "The column used to sort the process list in Activity Monitor by default.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.ActivityMonitor",
+    "key": "SortDirection",
+    "value": "0",
+    "type": "integer",
+    "all_values": [
+      "0",
+      "1"
+    ],
+    "category": "Activity Monitor",
+    "description": "Sort direction for the Activity Monitor process list. 0=descending (highest first), 1=ascending (lowest first).",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.TextEdit",
+    "key": "PlainTextEncoding",
+    "value": "4",
+    "type": "integer",
+    "all_values": [
+      "4",
+      "5",
+      "10",
+      "30"
+    ],
+    "category": "TextEdit",
+    "description": "Text encoding used when opening files in TextEdit plain-text mode. 4=UTF-8, 5=UTF-16, 10=macOS Roman, 30=Western (ISO Latin 1).",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.TextEdit",
+    "key": "PlainTextEncodingForWrite",
+    "value": "4",
+    "type": "integer",
+    "all_values": [
+      "4",
+      "5",
+      "10",
+      "30"
+    ],
+    "category": "TextEdit",
+    "description": "Text encoding used when saving files in TextEdit plain-text mode. 4=UTF-8 (recommended), 5=UTF-16, 10=macOS Roman, 30=Western (ISO Latin 1).",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.menuextra.clock",
+    "key": "ShowAMPM",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Menu Bar",
+    "description": "Show AM/PM indicator alongside the time in the menu bar clock.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.menuextra.clock",
+    "key": "ShowDayOfWeek",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "Menu Bar",
+    "description": "Show the abbreviated day of the week (e.g. 'Mon') before the time in the menu bar clock.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.Siri",
+    "key": "StatusMenuVisible",
+    "value": "true",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "General",
+    "description": "Show the Siri icon in the menu bar. Set to false to hide it from the menu bar while keeping Siri available via keyboard shortcut.",
+    "sources": [
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
+    ]
+  },
+  {
+    "domain": "com.apple.CrashReporter",
+    "key": "DialogType",
+    "value": "prompt",
+    "type": "string",
+    "all_values": [
+      "prompt",
+      "notification",
+      "none",
+      "developer"
+    ],
+    "category": "Miscellaneous",
+    "description": "How crash reports are presented. 'prompt' shows a dialog, 'notification' shows a banner, 'none' suppresses all dialogs, 'developer' shows extended details.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.ImageCapture",
+    "key": "disableHotPlug",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "General",
+    "description": "Prevent Photos (or Image Capture) from automatically opening when a camera, iPhone, or other imaging device is connected to the Mac.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.systempreferences",
+    "key": "NSQuitAlwaysKeepsWindows",
+    "value": "false",
+    "type": "bool",
+    "all_values": [
+      "true",
+      "false"
+    ],
+    "category": "General",
+    "description": "Resume: remember and restore open windows when quitting and relaunching apps system-wide. Set to false to disable Resume for all apps.",
+    "sources": [
+      "https://github.com/jessfraz/dotfiles/blob/master/bin/macos-defaults",
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ]
+  },
+  {
+    "domain": "com.apple.driver.AppleBluetoothMultitouch.trackpad",
+    "key": "TrackpadRightClick",
+    "value": "true",
+    "type": "bool",
+    "category": "Trackpad",
+    "description": "Enable right-click by tapping with two fingers on Bluetooth trackpad.",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "all_values": [
+      "true",
+      "false"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "com.apple.trackpad.trackpadCornerClickBehavior",
+    "value": "1",
+    "type": "integer",
+    "category": "Trackpad",
+    "description": "Set bottom-right corner trackpad click as secondary click (right-click). Use -currentHost flag when applying.",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "all_values": [
+      "0",
+      "1"
+    ]
+  },
+  {
+    "domain": "NSGlobalDomain",
+    "key": "com.apple.trackpad.enableSecondaryClick",
+    "value": "true",
+    "type": "bool",
+    "category": "Trackpad",
+    "description": "Enable secondary click (right-click) via trackpad corner. Use -currentHost flag when applying.",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "all_values": [
+      "true",
+      "false"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "wvous-br-modifier",
+    "value": "0",
+    "type": "integer",
+    "category": "Dock",
+    "description": "Modifier key required to trigger the bottom-right hot corner action. 0 = no modifier.",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "all_values": [
+      "0",
+      "131072",
+      "262144",
+      "524288",
+      "1048576"
+    ],
+    "settings_url": "x-apple.systempreferences:com.apple.preference.expose"
+  },
+  {
+    "domain": "com.apple.DiskUtility",
+    "key": "DUDebugMenuEnabled",
+    "value": "true",
+    "type": "bool",
+    "category": "Miscellaneous",
+    "description": "Enable the debug menu in Disk Utility.",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "all_values": [
+      "true",
+      "false"
+    ]
+  },
+  {
+    "domain": "com.apple.DiskUtility",
+    "key": "advanced-image-options",
+    "value": "true",
+    "type": "bool",
+    "category": "Miscellaneous",
+    "description": "Enable advanced image options in Disk Utility.",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "all_values": [
+      "true",
+      "false"
+    ]
+  },
+  {
+    "domain": "com.apple.QuickTimePlayerX",
+    "key": "MGPlayMovieOnOpen",
+    "value": "true",
+    "type": "bool",
+    "category": "Miscellaneous",
+    "description": "Auto-play movies when opened in QuickTime Player.",
+    "sources": [
+      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
+    ],
+    "all_values": [
+      "true",
+      "false"
+    ]
+  },
+  {
+    "domain": "com.apple.dock",
+    "key": "persistent-apps",
+    "value": "()",
+    "type": "array",
+    "category": "Dock",
+    "description": "List of persistent app icons shown in the Dock. Set to an empty array to remove all default app icons from the Dock.",
+    "sources": [
+      "https://github.com/FrancesCoronel/dotfiles/blob/master/init/.osx"
+    ],
+    "all_values": []
+  },
+  {
+    "domain": "com.apple.finder",
+    "key": "FXInfoPanesExpanded",
+    "value": "",
+    "type": "dict",
+    "category": "Finder",
+    "description": "Controls which panes are expanded in the Finder Get Info panel. Common keys: General, OpenWith, Privileges (each bool).",
+    "sources": [
+      "https://github.com/FrancesCoronel/dotfiles/blob/master/init/.osx"
+    ],
+    "all_values": []
+  }
+]
