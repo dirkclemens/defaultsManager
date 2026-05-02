@@ -8,16 +8,20 @@ import Combine
 
 struct DetailView: View {
     @EnvironmentObject var backupManager: BackupManager
+    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var favoritesStore: FavoritesStore
 
     let entry: DefaultEntry
 
     @State private var editedValue: String = ""
     @State private var currentSystemValue: String = "…"
+    @State private var valueBeforeEdit: String = ""   // for session change tracking
     @State private var isLoading = false
     @State private var statusMessage: String?
     @State private var statusIsError = false
     @State private var showRestoreConfirm = false
     @State private var pendingRestartAction: RestartAction = .none
+    @State private var needsFullDiskAccess = false
 
     var body: some View {
         ScrollView {
@@ -28,7 +32,9 @@ struct DetailView: View {
                 systemValueSection
                 Divider()
 
-                if entry.type.isEditable {
+                if needsFullDiskAccess {
+                    fullDiskAccessBanner
+                } else if entry.type.isEditable {
                     editSection
                     Divider()
                 } else {
@@ -59,6 +65,7 @@ struct DetailView: View {
         .onAppear(perform: loadCurrentValue)
         .onChange(of: entry) { _, _ in
             pendingRestartAction = .none
+            needsFullDiskAccess = false
             loadCurrentValue()
         }
     }
@@ -70,6 +77,17 @@ struct DetailView: View {
             HStack(alignment: .top) {
                 TypeBadge(type: entry.type)
                 Spacer()
+                // Favorite toggle
+                Button {
+                    favoritesStore.toggle(entry)
+                } label: {
+                    Image(systemName: favoritesStore.isFavorite(entry) ? "star.fill" : "star")
+                        .foregroundStyle(favoritesStore.isFavorite(entry) ? .yellow : .secondary)
+                        .font(.title3)
+                }
+                .buttonStyle(.borderless)
+                .help(favoritesStore.isFavorite(entry) ? "Remove from Favorites" : "Add to Favorites")
+
                 // Open in System Settings button
                 if let settingsURL = SettingsURLResolver.url(for: entry) {
                     Button {
@@ -179,12 +197,52 @@ struct DetailView: View {
                     .font(.caption)
             }
 
+            // CLI command preview
+            cliCommandRow
+
             HStack {
                 Button("Apply", systemImage: "checkmark.circle.fill") { applyValue() }
                     .buttonStyle(.borderedProminent)
                     .keyboardShortcut(.return, modifiers: .command)
                 Button("Reset to Current") { loadCurrentValue() }
                     .buttonStyle(.bordered)
+            }
+        }
+    }
+
+    // MARK: - CLI Command
+
+    private var cliCommand: String {
+        let domainArg: String
+        switch entry.domain {
+        case "NSGlobalDomain", "Apple Global Domain", "":
+            domainArg = "-globalDomain"
+        default:
+            domainArg = entry.domain
+        }
+        return "defaults write \(domainArg) \(entry.key) \(entry.type.defaultsFlag) \(editedValue)"
+    }
+
+    private var cliCommandRow: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Terminal command:")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            HStack(spacing: 6) {
+                Text(cliCommand)
+                    .font(.system(.caption, design: .monospaced))
+                    .textSelection(.enabled)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 6)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.secondary.opacity(0.08))
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
+                Button("", systemImage: "doc.on.doc") {
+                    NSPasteboard.general.clearContents()
+                    NSPasteboard.general.setString(cliCommand, forType: .string)
+                }
+                .buttonStyle(.borderless)
+                .help("Copy command to clipboard")
             }
         }
     }
@@ -301,6 +359,34 @@ struct DetailView: View {
         }
     }
 
+    // MARK: - Full Disk Access Banner
+
+    private var fullDiskAccessBanner: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 12) {
+                Image(systemName: "lock.shield")
+                    .foregroundStyle(.orange)
+                    .font(.title3)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Full Disk Access required")
+                        .font(.callout.bold())
+                    Text("\(entry.domain) runs in a sandbox container. defaultsManager needs Full Disk Access to read or write its preferences.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            Button("Open Privacy & Security Settings") {
+                NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles")!)
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.small)
+        }
+        .padding(12)
+        .background(Color.orange.opacity(0.08))
+        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.orange.opacity(0.3), lineWidth: 1))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+
     // MARK: - Restart Banner
 
     private var restartBanner: some View {
@@ -361,11 +447,16 @@ struct DetailView: View {
         isLoading = true
         statusMessage = nil
         editedValue = entry.value
+        let domain = entry.domain
         DispatchQueue.global(qos: .userInitiated).async {
-            let val = ApplyManager.readCurrentValue(domain: entry.domain, key: entry.key)
+            let containerised = ApplyManager.needsFullDiskAccess(for: domain)
+            let val = containerised ? nil : ApplyManager.readCurrentValue(domain: domain, key: entry.key)
             DispatchQueue.main.async {
-                currentSystemValue = val ?? "(not set)"
-                editedValue = Self.normalise(val ?? entry.value, for: entry.type)
+                needsFullDiskAccess = containerised
+                currentSystemValue = val ?? (containerised ? "(sandbox — needs Full Disk Access)" : "(not set)")
+                let normalised = Self.normalise(val ?? entry.value, for: entry.type)
+                editedValue = normalised
+                valueBeforeEdit = normalised   // capture pre-edit value for session tracking
                 isLoading = false
             }
         }
@@ -388,6 +479,7 @@ struct DetailView: View {
         do {
             try ApplyManager.write(domain: entry.domain, key: entry.key, value: editedValue, type: entry.type)
             setStatus("Applied successfully.", isError: false)
+            sessionStore.record(entry: entry, oldValue: valueBeforeEdit, newValue: editedValue)
             loadCurrentValue()
             let action = RestartActionResolver.action(for: entry)
             withAnimation { pendingRestartAction = action }

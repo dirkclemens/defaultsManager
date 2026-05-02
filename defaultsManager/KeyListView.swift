@@ -13,18 +13,28 @@ struct KeyListView: View {
     @Binding var selectedEntry: DefaultEntry?
     @Binding var searchText: String
 
+    private var isGlobalSearch: Bool { !searchText.isEmpty }
+
     private var filtered: [DefaultEntry] {
-        store.entries(for: category, matching: searchText)
+        isGlobalSearch
+            ? store.entries(matching: searchText)
+            : store.entries(for: category, matching: searchText)
+    }
+
+    private var totalCount: Int {
+        isGlobalSearch
+            ? store.entries.count
+            : store.entries(for: category).count
     }
 
     var body: some View {
         List(filtered, selection: $selectedEntry) { entry in
-            EntryRow(entry: entry)
+            EntryRow(entry: entry, showCategory: isGlobalSearch)
                 .tag(entry)
         }
-        .searchable(text: $searchText, prompt: "Filter settings…")
-        .navigationTitle(category)
-        .navigationSubtitle("\(filtered.count) of \(store.entries(for: category).count) settings")
+        .searchable(text: $searchText, prompt: "Search all settings…")
+        .navigationTitle(isGlobalSearch ? "Search Results" : category)
+        .navigationSubtitle("\(filtered.count) of \(totalCount) settings")
         .onChange(of: category) { _, _ in
             selectedEntry = nil
             searchText = ""
@@ -34,14 +44,34 @@ struct KeyListView: View {
 
 struct EntryRow: View {
     @EnvironmentObject var backupManager: BackupManager
+    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var favoritesStore: FavoritesStore
     let entry: DefaultEntry
+    var showCategory: Bool = false
 
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 3) {
-                Text(entry.key)
-                    .font(.body)
-                    .lineLimit(1)
+                HStack(spacing: 6) {
+                    Text(entry.key)
+                        .font(.body)
+                        .lineLimit(1)
+                    if showCategory {
+                        CategoryBadge(category: entry.category)
+                    }
+                    if sessionStore.isChanged(entry) {
+                        Image(systemName: "pencil.circle.fill")
+                            .foregroundStyle(.orange)
+                            .imageScale(.small)
+                            .help("Changed this session")
+                    }
+                    if favoritesStore.isFavorite(entry) {
+                        Image(systemName: "star.fill")
+                            .foregroundStyle(.yellow)
+                            .imageScale(.small)
+                            .help("Favorite")
+                    }
+                }
                 Text(entry.domain)
                     .font(.caption2)
                     .foregroundStyle(.tertiary)

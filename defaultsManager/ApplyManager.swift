@@ -9,14 +9,36 @@ class ApplyManager {
 
     enum ApplyError: LocalizedError {
         case unsupportedType(DefaultValueType)
+        case needsFullDiskAccess(String)   // domain is in a sandbox container
         case commandFailed(String)
 
         var errorDescription: String? {
             switch self {
-            case .unsupportedType(let t): return "Cannot write value of type '\(t.rawValue)' — edit not supported."
-            case .commandFailed(let msg): return "defaults write failed: \(msg)"
+            case .unsupportedType(let t):
+                return "Cannot write value of type '\(t.rawValue)' — edit not supported."
+            case .needsFullDiskAccess(let domain):
+                return "'\(domain)' runs in a sandbox container. defaultsManager needs Full Disk Access to modify its preferences."
+            case .commandFailed(let msg):
+                return "defaults write failed: \(msg)"
             }
         }
+    }
+
+    /// Returns true if the domain stores its prefs inside ~/Library/Containers (sandboxed app).
+    static func isContainerised(domain: String) -> Bool {
+        let url = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Library/Containers/\(domain)")
+        return FileManager.default.fileExists(atPath: url.path)
+    }
+
+    /// Returns true if writing to this domain will fail due to missing Full Disk Access.
+    /// Probes by running `defaults read <domain>` and checking for a permission error.
+    static func needsFullDiskAccess(for domain: String) -> Bool {
+        guard isContainerised(domain: domain) else { return false }
+        // `defaults read <domain>` exits 0 when accessible (even if domain is empty).
+        // It exits non-zero with "Could not read domain" when FDA is required.
+        let result = runDefaults(["read", domain])
+        return result.exitCode != 0 && result.output.contains("Could not read domain")
     }
 
     /// Reads the current system value for the given entry.
@@ -37,6 +59,9 @@ class ApplyManager {
         let args = ["write"] + domainPart + [key, type.defaultsFlag, value]
         let result = runDefaults(args)
         if result.exitCode != 0 {
+            if needsFullDiskAccess(for: domain) {
+                throw ApplyError.needsFullDiskAccess(domain)
+            }
             throw ApplyError.commandFailed(result.output)
         }
     }

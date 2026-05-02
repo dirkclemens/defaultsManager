@@ -75,11 +75,21 @@ class DefaultsStore: ObservableObject {
     func entries(for category: String, matching search: String) -> [DefaultEntry] {
         let base = entries(for: category)
         if search.isEmpty { return base }
-        return base.filter {
-            $0.key.localizedCaseInsensitiveContains(search) ||
-            $0.value.localizedCaseInsensitiveContains(search) ||
-            $0.domain.localizedCaseInsensitiveContains(search)
-        }
+        return base.filter { matches($0, search: search) }
+    }
+
+    func entries(matching search: String) -> [DefaultEntry] {
+        guard !search.isEmpty else { return [] }
+        return entries.filter { matches($0, search: search) }
+            .sorted { $0.key.localizedCaseInsensitiveCompare($1.key) == .orderedAscending }
+    }
+
+    private func matches(_ entry: DefaultEntry, search: String) -> Bool {
+        entry.key.localizedCaseInsensitiveContains(search) ||
+        entry.domain.localizedCaseInsensitiveContains(search) ||
+        entry.value.localizedCaseInsensitiveContains(search) ||
+        entry.category.localizedCaseInsensitiveContains(search) ||
+        (entry.description?.localizedCaseInsensitiveContains(search) ?? false)
     }
 
     /// Reveals the user JSON file in Finder so the user can edit it.

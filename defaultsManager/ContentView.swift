@@ -8,8 +8,10 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var store: DefaultsStore
     @EnvironmentObject var backupManager: BackupManager
+    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var favoritesStore: FavoritesStore
 
-    @State private var selectedCategory: String?
+    @State private var sidebarSelection: SidebarItem?
     @State private var selectedEntry: DefaultEntry?
     @State private var searchText = ""
     @State private var showAlert = false
@@ -23,14 +25,21 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             // MARK: Category list (sidebar)
-            DomainListView(selectedCategory: $selectedCategory)
+            DomainListView(selection: $sidebarSelection)
                 .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 280)
         } content: {
             // MARK: Settings list (middle)
-            if let category = selectedCategory {
+            switch sidebarSelection {
+            case .favorites:
+                FavoritesView(selectedEntry: $selectedEntry)
+                    .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 420)
+            case .changed:
+                ChangedView(selectedEntry: $selectedEntry)
+                    .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 420)
+            case .category(let category):
                 KeyListView(category: category, selectedEntry: $selectedEntry, searchText: $searchText)
                     .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 420)
-            } else {
+            case nil:
                 ContentUnavailableView("Select a Category", systemImage: "sidebar.left",
                     description: Text("Choose a category from the sidebar to browse its settings."))
             }
@@ -172,4 +181,6 @@ struct ContentView: View {
     ContentView()
         .environmentObject(DefaultsStore())
         .environmentObject(BackupManager())
+        .environmentObject(SessionStore())
+        .environmentObject(FavoritesStore())
 }

@@ -1741,21 +1741,6 @@
   },
   {
     "domain": "com.apple.dock",
-    "key": "mouse-over-hilte-stack",
-    "value": "true",
-    "type": "bool",
-    "all_values": [
-      "true",
-      "false"
-    ],
-    "description": "Highlight Dock stack items on mouse-over in grid view.",
-    "category": "Dock",
-    "sources": [
-      "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
-    ]
-  },
-  {
-    "domain": "com.apple.dock",
     "key": "expose-animation-duration",
     "value": "0.3",
     "type": "float",

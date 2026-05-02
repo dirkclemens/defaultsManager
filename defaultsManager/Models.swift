@@ -60,6 +60,14 @@ enum DefaultValueType: String, Codable, CaseIterable {
     }
 }
 
+// MARK: - Sidebar Navigation
+
+enum SidebarItem: Hashable {
+    case favorites
+    case changed
+    case category(String)
+}
+
 // MARK: - Backup Entry
 
 struct BackupEntry: Codable {

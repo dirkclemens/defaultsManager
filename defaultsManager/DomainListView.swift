@@ -7,24 +7,75 @@ import SwiftUI
 
 struct DomainListView: View {
     @EnvironmentObject var store: DefaultsStore
-    @Binding var selectedCategory: String?
+    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var favoritesStore: FavoritesStore
+
+    @Binding var selection: SidebarItem?
 
     var body: some View {
-        List(store.categories, id: \.self, selection: $selectedCategory) { category in
-            HStack(spacing: 10) {
-                Image(systemName: icon(for: category))
-                    .foregroundStyle(color(for: category))
-                    .imageScale(.medium)
-                    .frame(width: 20)
-                VStack(alignment: .leading, spacing: 1) {
-                    Text(category)
-                        .font(.body)
-                    Text("\(store.entries(for: category).count) settings")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+        List(selection: $selection) {
+
+            // MARK: Special sections
+            Section {
+                HStack(spacing: 10) {
+                    Image(systemName: "star.fill")
+                        .foregroundStyle(.yellow)
+                        .frame(width: 20)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("Favorites")
+                            .font(.body)
+                        Text("\(favoritesStore.favoriteIDs.count) saved")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .tag(SidebarItem.favorites)
+
+                HStack(spacing: 10) {
+                    Image(systemName: "clock.arrow.circlepath")
+                        .foregroundStyle(.orange)
+                        .frame(width: 20)
+                    VStack(alignment: .leading, spacing: 1) {
+                        HStack(spacing: 6) {
+                            Text("Changed")
+                                .font(.body)
+                            if !sessionStore.changes.isEmpty {
+                                Text("\(sessionStore.changes.count)")
+                                    .font(.system(size: 10, weight: .semibold))
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 1)
+                                    .background(Color.orange)
+                                    .foregroundStyle(.white)
+                                    .clipShape(Capsule())
+                            }
+                        }
+                        Text("This session")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .tag(SidebarItem.changed)
+            }
+
+            // MARK: Category list
+            Section("Categories") {
+                ForEach(store.categories, id: \.self) { category in
+                    HStack(spacing: 10) {
+                        Image(systemName: icon(for: category))
+                            .foregroundStyle(color(for: category))
+                            .imageScale(.medium)
+                            .frame(width: 20)
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text(category)
+                                .font(.body)
+                            Text("\(store.entries(for: category).count) settings")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .tag(SidebarItem.category(category))
                 }
             }
-            .tag(category)
         }
         .navigationTitle("macOS Defaults")
     }
@@ -91,3 +142,4 @@ struct DomainListView: View {
         }
     }
 }
+
