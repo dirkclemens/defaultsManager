@@ -1,8 +1,14 @@
 # defaultsManager
 
-A native macOS app for browsing, editing, backing up, and restoring macOS `defaults` settings — the same hidden preferences that power users manage via the `defaults` command-line tool.
+defaultsManager is a native macOS app for browsing, editing, backing up, and restoring hidden macOS `defaults` settings — the same preferences power users normally manage via the `defaults` command-line tool. It ships with a curated, documented database of 234 settings across 25 categories and 51 domains, so you can find and change a setting without hunting through blog posts and gists. Every change shows the exact `defaults write` command before you apply it, and every setting can be backed up and restored individually or as a full system snapshot.
 
 > ⚠️ **Use with caution.** Changing system defaults can affect the stability and behavior of macOS. Always create a backup before making changes.
+
+---
+
+## Screenshots
+
+![screenshot](./screenshot.png)
 
 ---
 
@@ -29,18 +35,12 @@ A native macOS app for browsing, editing, backing up, and restoring macOS `defau
 
 ---
 
-## Screenshots
-
-![screenshot](./screenshot.png)
-
----
-
 ## Requirements
 
 | | |
 |---|---|
 | **macOS** | 14.0 (Sonoma) or later |
-| **Architecture** | Apple Silicon & Intel |
+| **Architecture** | Apple Silicon only |
 
 ---
 
@@ -58,6 +58,16 @@ A native macOS app for browsing, editing, backing up, and restoring macOS `defau
 4. Press **⌘R** to build and run.
 
 > **Note:** The app runs without a sandbox (`ENABLE_APP_SANDBOX = NO`). This is required to send signals to system processes (Finder, Dock, SystemUIServer), run `defaults export/import`, and access preferences of containerised apps when Full Disk Access is granted. This is intentional for a developer power tool.
+
+### Prebuilt DMG
+
+A ready-to-run build is available as `defaultsManager-1.0.dmg` (ad-hoc signed, Apple Silicon only). Since it isn't notarized by Apple, macOS blocks it on first launch. Remove the quarantine flag before opening:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/defaultsManager.app
+```
+
+Alternatively, right-click the app in Finder and choose "Open".
 
 ---
 
@@ -225,5 +235,4 @@ Please verify any new `defaults` key against actual macOS behavior before submit
 
 ## License
 
-MIT — see [LICENSE](LICENSE) for details.
-
+This project is licensed under the [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0) — see [LICENSE](LICENSE) for details. Free for noncommercial use; commercial use requires a separate license from the author.
