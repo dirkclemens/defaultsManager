@@ -12,6 +12,10 @@ struct defaultsManagerApp: App {
     @StateObject private var sessionStore = SessionStore()
     @StateObject private var favoritesStore = FavoritesStore()
 
+    init() {
+        UpdateChecker.checkForUpdate()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
