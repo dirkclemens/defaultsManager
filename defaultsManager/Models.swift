@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - Default Entry
 
-struct DefaultEntry: Identifiable, Codable, Hashable {
+nonisolated struct DefaultEntry: Identifiable, Codable, Hashable {
     var id: String { "\(domain)|\(key)" }
     let domain: String
     let key: String
@@ -30,7 +30,7 @@ struct DefaultEntry: Identifiable, Codable, Hashable {
 
 // MARK: - Value Type
 
-enum DefaultValueType: String, Codable, CaseIterable {
+nonisolated enum DefaultValueType: String, Codable, CaseIterable {
     case string
     case integer
     case float
@@ -70,10 +70,13 @@ enum SidebarItem: Hashable {
 
 // MARK: - Backup Entry
 
-struct BackupEntry: Codable {
+nonisolated struct BackupEntry: Codable {
     let domain: String
     let key: String
     let value: String
     let type: DefaultValueType
     let backedUpAt: Date
+    /// false if the key did not exist when backed up — restoring then deletes it.
+    /// Optional so backups written by older versions still decode (nil = was set).
+    var wasSet: Bool?
 }

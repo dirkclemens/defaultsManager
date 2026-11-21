@@ -22,6 +22,8 @@ struct DetailView: View {
     @State private var showRestoreConfirm = false
     @State private var pendingRestartAction: RestartAction = .none
     @State private var needsFullDiskAccess = false
+    @State private var statusToken = 0
+    @State private var isBusy = false   // a write / backup / restore is running
 
     var body: some View {
         ScrollView {
@@ -44,7 +46,9 @@ struct DetailView: View {
                     Divider()
                 }
 
-                backupSection
+                if entry.type.isEditable && !needsFullDiskAccess {
+                    backupSection
+                }
 
                 if let msg = statusMessage {
                     Label(msg, systemImage: statusIsError ? "xmark.circle.fill" : "checkmark.circle.fill")
@@ -62,12 +66,9 @@ struct DetailView: View {
             .padding(24)
         }
         .navigationTitle(entry.key)
+        // ContentView gives this view a new identity per entry (.id), so all
+        // @State starts fresh and onAppear runs again for every selection.
         .onAppear(perform: loadCurrentValue)
-        .onChange(of: entry) { _, _ in
-            pendingRestartAction = .none
-            needsFullDiskAccess = false
-            loadCurrentValue()
-        }
     }
 
     // MARK: - Header
@@ -111,7 +112,7 @@ struct DetailView: View {
                             }
                         }
                     } label: {
-                        Label("\(entry.sources!.count) source\(entry.sources!.count == 1 ? "" : "s")", systemImage: "safari")
+                        Label("\(sources.count) source\(sources.count == 1 ? "" : "s")", systemImage: "safari")
                             .font(.caption)
                     }
                     .menuStyle(.borderlessButton)
@@ -206,21 +207,19 @@ struct DetailView: View {
                     .keyboardShortcut(.return, modifiers: .command)
                 Button("Reset to Current") { loadCurrentValue() }
                     .buttonStyle(.bordered)
+                if isBusy {
+                    ProgressView().controlSize(.small)
+                }
             }
+            .disabled(isBusy || isLoading)
         }
     }
 
     // MARK: - CLI Command
 
     private var cliCommand: String {
-        let domainArg: String
-        switch entry.domain {
-        case "NSGlobalDomain", "Apple Global Domain", "":
-            domainArg = "-globalDomain"
-        default:
-            domainArg = entry.domain
-        }
-        return "defaults write \(domainArg) \(entry.key) \(entry.type.defaultsFlag) \(editedValue)"
+        let value = (try? ApplyManager.normalisedValue(editedValue, for: entry.type)) ?? editedValue
+        return ApplyManager.shellCommand(domain: entry.domain, key: entry.key, type: entry.type, value: value)
     }
 
     private var cliCommandRow: some View {
@@ -250,15 +249,24 @@ struct DetailView: View {
     // MARK: - Value editors
 
     private func valuePickerEditor(choices: [String]) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        // If the system currently holds an undocumented value, offer it too —
+        // otherwise nothing would appear selected and it could not be re-applied.
+        let options = (valueBeforeEdit.isEmpty || choices.contains(valueBeforeEdit))
+            ? choices : choices + [valueBeforeEdit]
+        return VStack(alignment: .leading, spacing: 6) {
             Text("Value:")
                 .font(.subheadline)
-            ForEach(choices, id: \.self) { v in
+            ForEach(options, id: \.self) { v in
                 HStack(spacing: 8) {
                     Image(systemName: editedValue == v ? "circle.inset.filled" : "circle")
                         .foregroundStyle(editedValue == v ? Color.accentColor : Color.secondary)
                     Text(v)
                         .font(.body)
+                    if !choices.contains(v) {
+                        Text("current, undocumented")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 .contentShape(Rectangle())
                 .onTapGesture { editedValue = v }
@@ -284,9 +292,11 @@ struct DetailView: View {
             TextField("Integer", text: $editedValue)
                 .textFieldStyle(.roundedBorder)
                 .frame(maxWidth: 200)
-                .onReceive(editedValue.publisher.collect()) { chars in
-                    let filtered = String(chars.filter { $0.isNumber || $0 == "-" })
-                    if filtered != editedValue { editedValue = filtered }
+                .onChange(of: editedValue) { _, newValue in
+                    // ASCII digits only, optional leading minus.
+                    var filtered = String(newValue.filter { $0.isASCII && $0.isNumber })
+                    if newValue.hasPrefix("-") { filtered = "-" + filtered }
+                    if filtered != newValue { editedValue = filtered }
                 }
         }
     }
@@ -336,8 +346,12 @@ struct DetailView: View {
 
             HStack {
                 Button("Backup Current Value", systemImage: "arrow.down.circle") {
-                    backupManager.backup(entry: entry)
-                    setStatus("Backed up successfully.", isError: false)
+                    isBusy = true
+                    Task {
+                        await backupManager.backup(entry: entry)
+                        isBusy = false
+                        setStatus("Backed up successfully.", isError: false)
+                    }
                 }
                 .buttonStyle(.bordered)
 
@@ -348,6 +362,7 @@ struct DetailView: View {
                     .buttonStyle(.bordered)
                 }
             }
+            .disabled(isBusy)
         }
         .confirmationDialog("Restore \(entry.key)?", isPresented: $showRestoreConfirm) {
             Button("Restore", role: .destructive) { restoreValue() }
@@ -445,12 +460,11 @@ struct DetailView: View {
 
     private func loadCurrentValue() {
         isLoading = true
-        statusMessage = nil
-        editedValue = entry.value
         let domain = entry.domain
+        let key = entry.key
         DispatchQueue.global(qos: .userInitiated).async {
             let containerised = ApplyManager.needsFullDiskAccess(for: domain)
-            let val = containerised ? nil : ApplyManager.readCurrentValue(domain: domain, key: entry.key)
+            let val = containerised ? nil : ApplyManager.readCurrentValue(domain: domain, key: key)
             DispatchQueue.main.async {
                 needsFullDiskAccess = containerised
                 currentSystemValue = val ?? (containerised ? "(sandbox — needs Full Disk Access)" : "(not set)")
@@ -467,43 +481,75 @@ struct DetailView: View {
     /// CLI but write only accepts "true"/"false"/"yes"/"no".
     private static func normalise(_ raw: String, for type: DefaultValueType) -> String {
         guard type == .bool else { return raw }
-        switch raw.lowercased() {
-        case "1", "yes": return "true"
-        case "0", "no":  return "false"
-        default:         return raw
-        }
+        return (try? ApplyManager.normalisedValue(raw, for: type)) ?? raw
     }
 
+    /// Validates on the main thread, then backs up and writes in the background
+    /// (each step spawns `/usr/bin/defaults`, which must not block the UI).
     private func applyValue() {
-        backupManager.backup(entry: entry)
+        let value: String
         do {
-            try ApplyManager.write(domain: entry.domain, key: entry.key, value: editedValue, type: entry.type)
-            setStatus("Applied successfully.", isError: false)
-            sessionStore.record(entry: entry, oldValue: valueBeforeEdit, newValue: editedValue)
-            loadCurrentValue()
-            let action = RestartActionResolver.action(for: entry)
-            withAnimation { pendingRestartAction = action }
+            // Validate first so an invalid value neither touches the backup nor the system.
+            value = try ApplyManager.normalisedValue(editedValue, for: entry.type)
         } catch {
             setStatus(error.localizedDescription, isError: true)
+            return
+        }
+        let entry = entry
+        let before = valueBeforeEdit
+        isBusy = true
+        Task {
+            defer { isBusy = false }
+            // Keep the *original* value as backup — don't overwrite it on every apply.
+            await backupManager.backupIfNeeded(entry: entry)
+            do {
+                try await Task.detached(priority: .userInitiated) {
+                    try ApplyManager.write(domain: entry.domain, key: entry.key, value: value, type: entry.type)
+                }.value
+                setStatus("Applied successfully.", isError: false)
+                sessionStore.record(entry: entry, oldValue: before, newValue: value)
+                loadCurrentValue()
+                let action = RestartActionResolver.action(for: entry)
+                withAnimation { pendingRestartAction = action }
+            } catch {
+                setStatus(error.localizedDescription, isError: true)
+            }
         }
     }
 
     private func restoreValue() {
-        do {
-            try backupManager.restore(entry: entry)
-            setStatus("Restored successfully.", isError: false)
-            loadCurrentValue()
-        } catch {
-            setStatus(error.localizedDescription, isError: true)
+        let entry = entry
+        let before = valueBeforeEdit
+        isBusy = true
+        Task {
+            defer { isBusy = false }
+            do {
+                try await backupManager.restore(entry: entry)
+                let restored = await Task.detached(priority: .userInitiated) {
+                    ApplyManager.readCurrentValue(domain: entry.domain, key: entry.key)
+                }.value
+                setStatus("Restored successfully.", isError: false)
+                sessionStore.record(entry: entry, oldValue: before,
+                                    newValue: Self.normalise(restored ?? entry.value, for: entry.type))
+                loadCurrentValue()
+                let action = RestartActionResolver.action(for: entry)
+                withAnimation { pendingRestartAction = action }
+            } catch {
+                setStatus(error.localizedDescription, isError: true)
+            }
         }
     }
 
     private func setStatus(_ message: String, isError: Bool) {
+        statusToken += 1
+        let token = statusToken
         withAnimation {
             statusMessage = message
             statusIsError = isError
         }
+        // Only clear if no newer message replaced this one in the meantime.
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            guard token == statusToken else { return }
             withAnimation { statusMessage = nil }
         }
     }

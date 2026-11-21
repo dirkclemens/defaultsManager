@@ -14,6 +14,8 @@ struct FavoritesView: View {
 
     @State private var showExportPanel = false
     @State private var showCopiedFeedback = false
+    @State private var exportDocument = ShellScriptDocument(content: "")
+    @State private var isBuildingScript = false
 
     private var favorites: [DefaultEntry] {
         favoritesStore.favorites(from: store.entries)
@@ -42,18 +44,24 @@ struct FavoritesView: View {
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
                         Button("Copy as Shell Script", systemImage: "terminal") {
-                            let script = favoritesStore.exportScript(for: favorites)
-                            NSPasteboard.general.clearContents()
-                            NSPasteboard.general.setString(script, forType: .string)
-                            withAnimation { showCopiedFeedback = true }
+                            Task {
+                                let script = await buildScript()
+                                NSPasteboard.general.clearContents()
+                                NSPasteboard.general.setString(script, forType: .string)
+                                withAnimation { showCopiedFeedback = true }
+                            }
                         }
                         Button("Save as Shell Script…", systemImage: "square.and.arrow.down") {
-                            showExportPanel = true
+                            Task {
+                                exportDocument = ShellScriptDocument(content: await buildScript())
+                                showExportPanel = true
+                            }
                         }
                     } label: {
                         Label("Export Favorites", systemImage: "square.and.arrow.up")
                     }
-                    .help("Export all favorites as shell defaults write commands")
+                    .disabled(isBuildingScript)
+                    .help("Export the current values of all favorites as defaults write commands")
                 }
             }
         }
@@ -74,10 +82,22 @@ struct FavoritesView: View {
         }
         .fileExporter(
             isPresented: $showExportPanel,
-            document: ShellScriptDocument(content: favoritesStore.exportScript(for: favorites)),
+            document: exportDocument,
             contentType: .shellScript,
             defaultFilename: "macos-defaults-favorites"
         ) { _ in }
+    }
+
+    /// Reads the favorites' current values off the main thread, then renders the script.
+    private func buildScript() async -> String {
+        isBuildingScript = true
+        defer { isBuildingScript = false }
+        let entries = favorites
+        let keys = entries.map { ($0.domain, $0.key) }
+        let values = await Task.detached(priority: .userInitiated) {
+            keys.map { ApplyManager.readCurrentValue(domain: $0.0, key: $0.1) }
+        }.value
+        return favoritesStore.exportScript(for: entries, currentValues: values)
     }
 }
 

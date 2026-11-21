@@ -13,7 +13,7 @@
       "https://macos-defaults.com/keyboard/applekeyboarduimode.html",
       "https://github.com/mathiasbynens/dotfiles/blob/main/.macos"
     ],
-    "description": "Keyboard navigation for controls: 0=text boxes only, 3=all controls (Tab moves focus)."
+    "description": "Keyboard navigation for controls: 0=text boxes and lists only, 2=all controls (Tab moves focus; macOS 12 and older used 3)."
   },
   {
     "domain": "NSGlobalDomain",
@@ -933,7 +933,8 @@
     ],
     "category": "Menu Bar",
     "sources": null,
-    "description": "Format string for the menu bar clock, e.g. 'EEE d MMM HH:mm:ss'."
+    "description": "Format string for the menu bar clock, e.g. 'EEE d MMM HH:mm:ss'.",
+    "restart_action": "ControlCenter"
   },
   {
     "domain": "com.apple.menuextra.clock",
@@ -946,7 +947,8 @@
     ],
     "category": "Menu Bar",
     "sources": null,
-    "description": "Flash the colon separators in the menu bar clock every second."
+    "description": "Flash the colon separators in the menu bar clock every second.",
+    "restart_action": "ControlCenter"
   },
   {
     "domain": "com.apple.screencapture",
@@ -1102,7 +1104,8 @@
     ],
     "description": "Show battery percentage in the menu bar.",
     "category": "General",
-    "sources": null
+    "sources": null,
+    "restart_action": "ControlCenter"
   },
   {
     "domain": "com.apple.menuextra.battery",
@@ -1115,7 +1118,8 @@
     ],
     "description": "Show remaining battery time (h:mm) in the menu bar.",
     "category": "General",
-    "sources": null
+    "sources": null,
+    "restart_action": "ControlCenter"
   },
   {
     "domain": "NSGlobalDomain",
@@ -1503,7 +1507,7 @@
   {
     "domain": "com.apple.desktopservices",
     "key": "DSDontWriteNetworkStores",
-    "value": "TRUE",
+    "value": "true",
     "type": "bool",
     "all_values": [
       "true",
@@ -1518,7 +1522,7 @@
   {
     "domain": "com.apple.desktopservices",
     "key": "DSDontWriteUSBStores",
-    "value": "TRUE",
+    "value": "true",
     "type": "bool",
     "all_values": [
       "true",
@@ -2169,19 +2173,6 @@
     "sources": null
   },
   {
-    "domain": "com.apple.terminal",
-    "key": "FocusFollowsMouse",
-    "value": "true #",
-    "type": "bool",
-    "all_values": [
-      "true",
-      "false"
-    ],
-    "description": "Hover over a Terminal window to type in it without clicking first.",
-    "category": "Miscellaneous",
-    "sources": null
-  },
-  {
     "domain": "org.x.X11",
     "key": "wm_ffm",
     "value": "true",
@@ -2555,7 +2546,7 @@
   {
     "domain": "com.apple.SoftwareUpdate",
     "key": "AutomaticDownload",
-    "value": "false",
+    "value": "0",
     "type": "integer",
     "all_values": [
       "0",
@@ -2570,7 +2561,7 @@
   {
     "domain": "com.apple.SoftwareUpdate",
     "key": "CriticalUpdateInstall",
-    "value": "true",
+    "value": "1",
     "type": "integer",
     "all_values": [
       "0",
@@ -3170,7 +3161,8 @@
     "description": "Show AM/PM indicator alongside the time in the menu bar clock.",
     "sources": [
       "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
-    ]
+    ],
+    "restart_action": "ControlCenter"
   },
   {
     "domain": "com.apple.menuextra.clock",
@@ -3185,7 +3177,8 @@
     "description": "Show the abbreviated day of the week (e.g. 'Mon') before the time in the menu bar clock.",
     "sources": [
       "https://gist.github.com/ChristopherA/98628f8cd00c94f11ee6035d53b0d3c6"
-    ]
+    ],
+    "restart_action": "ControlCenter"
   },
   {
     "domain": "com.apple.Siri",

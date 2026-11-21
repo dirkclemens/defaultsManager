@@ -7,38 +7,37 @@ import SwiftUI
 
 struct KeyListView: View {
     @EnvironmentObject var store: DefaultsStore
-    @EnvironmentObject var backupManager: BackupManager
 
-    let category: String
+    /// nil while showing global search results.
+    let category: String?
     @Binding var selectedEntry: DefaultEntry?
-    @Binding var searchText: String
+    /// Owned by ContentView (search field in the sidebar).
+    let searchText: String
 
-    private var isGlobalSearch: Bool { !searchText.isEmpty }
+    private var isGlobalSearch: Bool { !searchText.isEmpty || category == nil }
 
     private var filtered: [DefaultEntry] {
-        isGlobalSearch
-            ? store.entries(matching: searchText)
-            : store.entries(for: category, matching: searchText)
+        if isGlobalSearch { return store.entries(matching: searchText) }
+        return store.entries(for: category ?? "")
     }
 
     private var totalCount: Int {
-        isGlobalSearch
-            ? store.entries.count
-            : store.entries(for: category).count
+        isGlobalSearch ? store.entries.count : store.entries(for: category ?? "").count
     }
 
     var body: some View {
-        List(filtered, selection: $selectedEntry) { entry in
-            EntryRow(entry: entry, showCategory: isGlobalSearch)
-                .tag(entry)
+        Group {
+            if isGlobalSearch && filtered.isEmpty {
+                ContentUnavailableView.search(text: searchText)
+            } else {
+                List(filtered, selection: $selectedEntry) { entry in
+                    EntryRow(entry: entry, showCategory: isGlobalSearch)
+                        .tag(entry)
+                }
+            }
         }
-        .searchable(text: $searchText, prompt: "Search all settings…")
-        .navigationTitle(isGlobalSearch ? "Search Results" : category)
+        .navigationTitle(isGlobalSearch ? "Search Results" : (category ?? ""))
         .navigationSubtitle("\(filtered.count) of \(totalCount) settings")
-        .onChange(of: category) { _, _ in
-            selectedEntry = nil
-            searchText = ""
-        }
     }
 }
 

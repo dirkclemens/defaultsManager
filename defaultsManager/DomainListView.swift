@@ -24,7 +24,7 @@ struct DomainListView: View {
                     VStack(alignment: .leading, spacing: 1) {
                         Text("Favorites")
                             .font(.body)
-                        Text("\(favoritesStore.favoriteIDs.count) saved")
+                        Text("\(favoritesStore.favorites(from: store.entries).count) saved")
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                     }

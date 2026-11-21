@@ -54,10 +54,14 @@ struct RestartActionResolver {
         case "com.apple.finder":
             return .killProcess("Finder")
         case "com.apple.systemuiserver",
-             "com.apple.screencapture",
-             "com.apple.menuextra.clock",
-             "com.apple.menuextra.battery":
+             "com.apple.screencapture":
             return .killProcess("SystemUIServer")
+        // Since Big Sur the menu bar clock and battery are drawn by ControlCenter;
+        // restarting SystemUIServer has no visible effect (verified on macOS 27).
+        case "com.apple.menuextra.clock",
+             "com.apple.menuextra.battery",
+             "com.apple.controlcenter":
+            return .killProcess("ControlCenter")
         case "com.apple.universalaccess":
             return .logout
         default:
@@ -66,11 +70,13 @@ struct RestartActionResolver {
     }
 
     /// Maps friendly process names to bundle identifiers for reliable lookup.
+    /// Required for ControlCenter: its localizedName is translated ("Kontrollzentrum").
     private static func bundleIdentifier(for name: String) -> String? {
         switch name {
         case "Dock":            return "com.apple.dock"
         case "Finder":          return "com.apple.finder"
-        case "SystemUIServer":  return "com.apple.SystemUIServer"
+        case "SystemUIServer":  return "com.apple.systemuiserver"  // lowercase; lookup is case-sensitive
+        case "ControlCenter":   return "com.apple.controlcenter"
         default:                return nil
         }
     }

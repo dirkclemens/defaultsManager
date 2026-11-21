@@ -7,75 +7,67 @@ import Foundation
 import Combine
 import AppKit
 
-// Ordered category list (macos-defaults.com chapters first, then additional)
-let orderedCategories = [
-    "Dock", "Screenshots", "Safari", "Finder", "Desktop",
-    "Menu Bar", "Mouse", "Trackpad", "Keyboard", "Mission Control",
-    "Feedback Assistant", "Xcode", "Simulator", "TextEdit",
-    "Time Machine", "Activity Monitor", "Messages", "Miscellaneous",
-    // Additional categories from supplementary defaults list
-    "General", "Input", "Screen", "Mail", "iTunes",
-    // New categories from community sources
-    "Window Manager", "App Store",
-]
-
 class DefaultsStore: ObservableObject {
-    @Published var entries: [DefaultEntry] = []
+    @Published var entries: [DefaultEntry] = [] {
+        didSet { entriesByCategory = Self.group(entries) }
+    }
     @Published var categories: [String] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
+
+    /// Entries per category, pre-sorted by key. Rebuilt whenever `entries` changes
+    /// so views don't filter + sort the full list on every render.
+    private(set) var entriesByCategory: [String: [DefaultEntry]] = [:]
 
     init() {
         loadEntries()
     }
 
     // URL for the user-editable copy in Application Support
-    static var userFileURL: URL {
+    nonisolated static var userFileURL: URL {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         let dir = appSupport.appendingPathComponent("defaultsManager", isDirectory: true)
         return dir.appendingPathComponent("macos-defaults.json")
     }
 
+    /// Copy of the bundle file as of the last merge — the common ancestor for
+    /// the three-way merge in `mergeBundleEntries`.
+    nonisolated static var bundleSnapshotURL: URL {
+        userFileURL.deletingLastPathComponent().appendingPathComponent("macos-defaults.bundle-snapshot.json")
+    }
+
     func loadEntries() {
         isLoading = true
+        errorMessage = nil
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
+            var decoded: [DefaultEntry] = []
+            var loadError: String?
             do {
-                let url = try self.prepareUserFile()
-                let data = try Data(contentsOf: url)
-                let decoded = try JSONDecoder().decode([DefaultEntry].self, from: data)
-
-                // Collect known categories plus any custom ones from the user file
-                var seen = Set<String>()
-                var cats: [String] = []
-                for cat in decoded.map(\.category) where !seen.contains(cat) {
-                    cats.append(cat)
-                    seen.insert(cat)
-                }
-                cats.sort()
-
-                DispatchQueue.main.async {
-                    self.entries = decoded
-                    self.categories = cats
-                    self.isLoading = false
-                }
+                let url = try Self.prepareUserFile()
+                decoded = try JSONDecoder().decode([DefaultEntry].self, from: Data(contentsOf: url))
             } catch {
-                DispatchQueue.main.async {
-                    self.errorMessage = "Failed to load macos-defaults.json: \(error.localizedDescription)"
-                    self.isLoading = false
+                loadError = "Failed to load \(Self.userFileURL.path):\n\(Self.describe(error))\n\nShowing the built-in settings instead. Fix the file and use Reload."
+                // Fall back to the bundled list so the app stays usable.
+                if let bundleURL = Bundle.main.url(forResource: "macos-defaults", withExtension: "json"),
+                   let data = try? Data(contentsOf: bundleURL) {
+                    decoded = (try? JSONDecoder().decode([DefaultEntry].self, from: data)) ?? []
                 }
+            }
+
+            let cats = Array(Set(decoded.map(\.category))).sorted()
+
+            DispatchQueue.main.async {
+                guard let self else { return }
+                self.entries = decoded
+                self.categories = cats
+                self.errorMessage = loadError
+                self.isLoading = false
             }
         }
     }
 
     func entries(for category: String) -> [DefaultEntry] {
-        entries.filter { $0.category == category }.sorted { $0.key < $1.key }
-    }
-
-    func entries(for category: String, matching search: String) -> [DefaultEntry] {
-        let base = entries(for: category)
-        if search.isEmpty { return base }
-        return base.filter { matches($0, search: search) }
+        entriesByCategory[category] ?? []
     }
 
     func entries(matching search: String) -> [DefaultEntry] {
@@ -92,6 +84,10 @@ class DefaultsStore: ObservableObject {
         (entry.description?.localizedCaseInsensitiveContains(search) ?? false)
     }
 
+    private static func group(_ entries: [DefaultEntry]) -> [String: [DefaultEntry]] {
+        Dictionary(grouping: entries, by: \.category).mapValues { $0.sorted { $0.key < $1.key } }
+    }
+
     /// Reveals the user JSON file in Finder so the user can edit it.
     func revealUserFileInFinder() {
         NSWorkspace.shared.activateFileViewerSelecting([Self.userFileURL])
@@ -99,10 +95,10 @@ class DefaultsStore: ObservableObject {
 
     /// Ensures a user-editable copy exists in Application Support.
     /// - On first launch: copies the bundle file.
-    /// - On updates: merges new bundle entries (by domain+key) without overwriting user entries.
-    private func prepareUserFile() throws -> URL {
+    /// - On updates: three-way merges bundle changes without overwriting user edits.
+    nonisolated private static func prepareUserFile() throws -> URL {
         let fm = FileManager.default
-        let dest = Self.userFileURL
+        let dest = userFileURL
         let dir = dest.deletingLastPathComponent()
 
         // Create ~/Library/Application Support/defaultsManager/ if needed
@@ -117,33 +113,70 @@ class DefaultsStore: ObservableObject {
             // First launch — just copy the bundle file
             try fm.copyItem(at: bundleURL, to: dest)
         } else {
-            // Subsequent launches — merge any new entries from the bundle into the user file
-            try mergeNewBundleEntries(bundleURL: bundleURL, userURL: dest)
+            try mergeBundleEntries(bundleURL: bundleURL, userURL: dest)
         }
+        // Remember what the bundle looked like for the next merge.
+        try? Data(contentsOf: bundleURL).write(to: bundleSnapshotURL, options: .atomic)
 
         return dest
     }
 
-    /// Adds entries that exist in the bundle but not yet in the user file (identified by domain+key).
-    /// User-added or user-modified entries are preserved untouched.
-    private func mergeNewBundleEntries(bundleURL: URL, userURL: URL) throws {
+    /// Three-way merge of bundle updates into the user file (identity = domain+key):
+    /// - new bundle entries are added (unless the user deleted them earlier),
+    /// - entries the user never touched receive bundle corrections,
+    /// - entries removed from the bundle are dropped if the user never touched them,
+    /// - anything the user edited or added is preserved untouched.
+    /// Without a snapshot (first run after upgrading) only new entries are added.
+    nonisolated private static func mergeBundleEntries(bundleURL: URL, userURL: URL) throws {
         let decoder = JSONDecoder()
+        let bundleEntries = try decoder.decode([DefaultEntry].self, from: Data(contentsOf: bundleURL))
+        var userEntries = try decoder.decode([DefaultEntry].self, from: Data(contentsOf: userURL))
+        let snapshot: [String: DefaultEntry]? = (try? Data(contentsOf: bundleSnapshotURL))
+            .flatMap { try? decoder.decode([DefaultEntry].self, from: $0) }
+            .map { Dictionary($0.map { ($0.id, $0) }, uniquingKeysWith: { a, _ in a }) }
+
+        let bundleByID = Dictionary(bundleEntries.map { ($0.id, $0) }, uniquingKeysWith: { a, _ in a })
+        var changed = false
+
+        if let snapshot {
+            userEntries = userEntries.compactMap { user in
+                guard let old = snapshot[user.id], old == user else { return user }  // user-edited or user-added
+                let new = bundleByID[user.id]
+                if new != user { changed = true }
+                return new  // nil → removed from bundle
+            }
+        }
+
+        let userIDs = Set(userEntries.map(\.id))
+        let additions = bundleEntries.filter { entry in
+            !userIDs.contains(entry.id) && snapshot?[entry.id] == nil
+        }
+        if !additions.isEmpty {
+            userEntries.append(contentsOf: additions)
+            changed = true
+        }
+
+        guard changed else { return }
         let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
+        try encoder.encode(userEntries).write(to: userURL, options: .atomic)
+    }
 
-        let bundleData = try Data(contentsOf: bundleURL)
-        let userData = try Data(contentsOf: userURL)
-
-        let bundleEntries = try decoder.decode([DefaultEntry].self, from: bundleData)
-        var userEntries = try decoder.decode([DefaultEntry].self, from: userData)
-
-        let userKeys = Set(userEntries.map { "\($0.domain)|\($0.key)" })
-        let newEntries = bundleEntries.filter { !userKeys.contains("\($0.domain)|\($0.key)") }
-
-        guard !newEntries.isEmpty else { return }
-
-        userEntries.append(contentsOf: newEntries)
-        let merged = try encoder.encode(userEntries)
-        try merged.write(to: userURL, options: .atomic)
+    /// Makes JSON decoding errors readable (which entry / field is broken).
+    nonisolated private static func describe(_ error: Error) -> String {
+        guard let decodingError = error as? DecodingError else { return error.localizedDescription }
+        func path(_ ctx: DecodingError.Context) -> String {
+            ctx.codingPath.map { $0.intValue.map { "[\($0)]" } ?? ".\($0.stringValue)" }.joined()
+        }
+        switch decodingError {
+        case .dataCorrupted(let ctx):
+            return "Invalid JSON: \(ctx.underlyingError?.localizedDescription ?? ctx.debugDescription)"
+        case .keyNotFound(let key, let ctx):
+            return "Missing field '\(key.stringValue)' at \(path(ctx))"
+        case .typeMismatch(_, let ctx), .valueNotFound(_, let ctx):
+            return "\(ctx.debugDescription) at \(path(ctx))"
+        @unknown default:
+            return error.localizedDescription
+        }
     }
 }

@@ -5,6 +5,15 @@
 
 import SwiftUI
 
+enum AppStorageKey {
+    static let hideLaunchWarning = "hideLaunchWarning"
+}
+
+extension Notification.Name {
+    /// Re-opens the launch safety notice (Help menu).
+    static let showSafetyNotice = Notification.Name("defaultsManager.showSafetyNotice")
+}
+
 @main
 struct defaultsManagerApp: App {
     @StateObject private var store = DefaultsStore()
@@ -27,5 +36,12 @@ struct defaultsManagerApp: App {
         }
         .windowStyle(.titleBar)
         .windowToolbarStyle(.unified)
+        .commands {
+            CommandGroup(after: .help) {
+                Button("Show Safety Notice") {
+                    NotificationCenter.default.post(name: .showSafetyNotice, object: nil)
+                }
+            }
+        }
     }
 }

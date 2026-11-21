@@ -36,8 +36,10 @@ class FavoritesStore: ObservableObject {
             .sorted { $0.key.localizedCaseInsensitiveCompare($1.key) == .orderedAscending }
     }
 
-    /// Generates a shell script containing `defaults write` commands for all favorites.
-    func exportScript(for entries: [DefaultEntry]) -> String {
+    /// Generates a shell script of `defaults write` commands that reproduces the
+    /// favorites' *current* system values (e.g. to set up another Mac).
+    /// `currentValues[i]` is the value read for `entries[i]`, nil if the key is unset.
+    func exportScript(for entries: [DefaultEntry], currentValues: [String?]) -> String {
         let formatter = ISO8601DateFormatter()
         var lines: [String] = [
             "#!/bin/bash",
@@ -47,19 +49,48 @@ class FavoritesStore: ObservableObject {
             "",
         ]
 
+        let values = Dictionary(uniqueKeysWithValues: zip(entries.map(\.id), currentValues))
+        var restartTargets = Set<String>()
+        var needsLogout = false
+
         let grouped = Dictionary(grouping: entries, by: { $0.category })
         for category in grouped.keys.sorted() {
             lines.append("# ── \(category) ──────────────────────────")
             for entry in (grouped[category] ?? []).sorted(by: { $0.key < $1.key }) {
-                let domainArg: String
-                switch entry.domain {
-                case "NSGlobalDomain", "Apple Global Domain", "":
-                    domainArg = "-globalDomain"
-                default:
-                    domainArg = entry.domain
+                guard entry.type.isEditable else {
+                    lines.append("# \(entry.key): type '\(entry.type.rawValue)' is not exported")
+                    continue
                 }
-                lines.append("defaults write \(domainArg) \(entry.key) \(entry.type.defaultsFlag) \(entry.value)")
+                let current = values[entry.id] ?? nil
+                let raw = current ?? entry.value
+                let value = (try? ApplyManager.normalisedValue(raw, for: entry.type)) ?? raw
+                let command = ApplyManager.shellCommand(domain: entry.domain, key: entry.key,
+                                                        type: entry.type, value: value)
+                if current == nil {
+                    // Not set on this Mac — keep the documented default for reference only.
+                    lines.append("# not set here, documented default:")
+                    lines.append("# " + command)
+                    continue
+                }
+                lines.append(command)
+                switch RestartActionResolver.action(for: entry) {
+                case .killProcess(let name): restartTargets.insert(name)
+                case .logout:                needsLogout = true
+                case .none:                  break
+                }
             }
+            lines.append("")
+        }
+
+        if !restartTargets.isEmpty {
+            lines.append("# Apply changes")
+            for name in restartTargets.sorted() {
+                lines.append("killall \(ApplyManager.shellQuote(name)) 2>/dev/null")
+            }
+            lines.append("")
+        }
+        if needsLogout {
+            lines.append("echo 'Some changes take effect after logging out and back in.'")
             lines.append("")
         }
 

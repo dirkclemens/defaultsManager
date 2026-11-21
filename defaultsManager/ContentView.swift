@@ -5,22 +5,30 @@
 
 import SwiftUI
 
+/// Only one `.sheet` per view is reliable in SwiftUI, so all sheets go through this.
+enum ActiveSheet: String, Identifiable {
+    case launchWarning, restore
+    var id: String { rawValue }
+}
+
 struct ContentView: View {
     @EnvironmentObject var store: DefaultsStore
     @EnvironmentObject var backupManager: BackupManager
     @EnvironmentObject var sessionStore: SessionStore
     @EnvironmentObject var favoritesStore: FavoritesStore
 
+    @AppStorage(AppStorageKey.hideLaunchWarning) private var hideLaunchWarning = false
+
     @State private var sidebarSelection: SidebarItem?
     @State private var selectedEntry: DefaultEntry?
     @State private var searchText = ""
     @State private var showAlert = false
-    @State private var showRestoreAllAlert = false
     @State private var alertMessage = ""
     @State private var alertTitle = ""
     @State private var isWorking = false
     @State private var workingMessage = ""
-    @State private var showLaunchWarning = true
+    @State private var activeSheet: ActiveSheet? =
+        UserDefaults.standard.bool(forKey: AppStorageKey.hideLaunchWarning) ? nil : .launchWarning
 
     var body: some View {
         NavigationSplitView {
@@ -29,28 +37,40 @@ struct ContentView: View {
                 .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 280)
         } content: {
             // MARK: Settings list (middle)
-            switch sidebarSelection {
-            case .favorites:
-                FavoritesView(selectedEntry: $selectedEntry)
-                    .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 420)
-            case .changed:
-                ChangedView(selectedEntry: $selectedEntry)
-                    .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 420)
-            case .category(let category):
-                KeyListView(category: category, selectedEntry: $selectedEntry, searchText: $searchText)
-                    .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 420)
-            case nil:
-                ContentUnavailableView("Select a Category", systemImage: "sidebar.left",
-                    description: Text("Choose a category from the sidebar to browse its settings."))
+            Group {
+                if !searchText.isEmpty {
+                    // Global search works regardless of what is selected in the sidebar.
+                    KeyListView(category: nil, selectedEntry: $selectedEntry, searchText: searchText)
+                } else {
+                    switch sidebarSelection {
+                    case .favorites:
+                        FavoritesView(selectedEntry: $selectedEntry)
+                    case .changed:
+                        ChangedView(selectedEntry: $selectedEntry)
+                    case .category(let category):
+                        KeyListView(category: category, selectedEntry: $selectedEntry, searchText: "")
+                    case nil:
+                        ContentUnavailableView("Select a Category", systemImage: "sidebar.left",
+                            description: Text("Choose a category from the sidebar or search all settings."))
+                    }
+                }
             }
+            .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 420)
         } detail: {
             // MARK: Detail panel (right)
             if let entry = selectedEntry {
                 DetailView(entry: entry)
+                    .id(entry.id)   // fresh @State per entry; avoids stale async results
             } else {
                 ContentUnavailableView("Select a Setting", systemImage: "gearshape",
                     description: Text("Choose a setting from the list to view and edit its value."))
             }
+        }
+        .searchable(text: $searchText, placement: .sidebar, prompt: "Search all settings…")
+        .onChange(of: sidebarSelection) { _, _ in
+            // Picking something in the sidebar ends a running search.
+            searchText = ""
+            selectedEntry = nil
         }
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
@@ -59,14 +79,14 @@ struct ContentView: View {
                 } label: {
                     Label("Backup All", systemImage: "arrow.down.circle")
                 }
-                .help("Backup the current system state for all \(store.entries.count) settings")
+                .help("Save a new timestamped backup of all \(store.entries.count) settings")
 
                 Button {
-                    showRestoreAllAlert = true
+                    activeSheet = .restore
                 } label: {
-                    Label("Restore All", systemImage: "arrow.counterclockwise.circle")
+                    Label("Restore…", systemImage: "arrow.counterclockwise.circle")
                 }
-                .help("Restore all settings to their backed-up values")
+                .help("Choose a backup and restore selected settings")
                 .disabled(!backupManager.hasFullBackup)
 
                 Divider()
@@ -76,19 +96,30 @@ struct ContentView: View {
                 } label: {
                     Label("Edit Parameters JSON", systemImage: "doc.badge.gearshape")
                 }
-                .help("Open macos-defaults.json in Finder — add custom entries and reload the app")
+                .help("Open macos-defaults.json in Finder — add custom entries, then Reload")
+
+                Button {
+                    store.loadEntries()
+                } label: {
+                    Label("Reload Parameters", systemImage: "arrow.clockwise")
+                }
+                .keyboardShortcut("r", modifiers: .command)
+                .help("Reload macos-defaults.json (⌘R)")
             }
+        }
+        .alert("Could Not Load Settings", isPresented: Binding(
+            get: { store.errorMessage != nil && activeSheet != .launchWarning },
+            set: { if !$0 { store.errorMessage = nil } }
+        )) {
+            Button("Show File") { store.revealUserFileInFinder() }
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(store.errorMessage ?? "")
         }
         .alert(alertTitle, isPresented: $showAlert) {
             Button("OK") {}
         } message: {
             Text(alertMessage)
-        }
-        .confirmationDialog("Restore All Settings?", isPresented: $showRestoreAllAlert) {
-            Button("Restore All", role: .destructive) { restoreAll() }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text("This will restore \(backupManager.backedUpDomains.count) domains to their backed-up values.")
         }
         .overlay {
             if store.isLoading || isWorking {
@@ -107,72 +138,73 @@ struct ContentView: View {
                 }
             }
         }
-        .sheet(isPresented: $showLaunchWarning) {
-            VStack(spacing: 24) {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .font(.system(size: 52))
-                    .foregroundStyle(.yellow)
+        .onReceive(NotificationCenter.default.publisher(for: .showSafetyNotice)) { _ in
+            activeSheet = .launchWarning
+        }
+        .sheet(item: $activeSheet) { sheet in
+            switch sheet {
+            case .launchWarning: launchWarning
+            case .restore:       RestoreBackupView()
+            }
+        }
+    }
 
-                Text("Proceed with Caution")
-                    .font(.title.bold())
+    // MARK: - Launch warning
 
-                Text("This app lets you modify macOS system defaults — low-level settings that control how macOS behaves.\n\nChanging the wrong value can cause unexpected behaviour, app crashes, or require a system restart to recover.\n\n**Only change a value if you are absolutely sure what it does.**\n\nWhen in doubt, use **Backup All** before making any changes so you can restore to a known-good state.")
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: 420)
+    private var launchWarning: some View {
+        VStack(spacing: 24) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 52))
+                .foregroundStyle(.yellow)
 
+            Text("Proceed with Caution")
+                .font(.title.bold())
+
+            Text("This app lets you modify macOS system defaults — low-level settings that control how macOS behaves.\n\nChanging the wrong value can cause unexpected behaviour, app crashes, or require a system restart to recover.\n\n**Only change a value if you are absolutely sure what it does.**\n\nWhen in doubt, use **Backup All** before making any changes so you can restore to a known-good state.")
+                .multilineTextAlignment(.center)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: 420)
+
+            VStack(spacing: 12) {
                 Button("I Understand — Proceed") {
-                    showLaunchWarning = false
+                    activeSheet = nil
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 .keyboardShortcut(.defaultAction)
+
+                Toggle("Don't show this again", isOn: $hideLaunchWarning)
+                    .toggleStyle(.checkbox)
+                    .font(.callout)
+                    .help("You can show this notice again from the Help menu.")
             }
-            .padding(40)
-            .interactiveDismissDisabled()
         }
+        .padding(40)
+        .interactiveDismissDisabled()
     }
+
+    // MARK: - Backup
 
     private func backupAll() {
-        let domains = Array(Set(store.entries.map(\.domain))).sorted()
-        let backupDir = backupManager.domainBackupURL
-        workingMessage = "Exporting \(domains.count) domains…"
+        let keysByDomain = Dictionary(grouping: store.entries, by: \.domain).mapValues { $0.map(\.key) }
+        workingMessage = "Backing up \(keysByDomain.count) domains…"
         isWorking = true
-        Task.detached(priority: .userInitiated) {
-            let (exported, errors) = await backupManager.exportDomains(domains, to: backupDir)
-            await backupManager.recordBackup(exportedDomains: exported)
-            await MainActor.run {
-                isWorking = false
-                if errors.isEmpty {
-                    alertTitle = "Backup Complete"
-                    alertMessage = "Successfully exported \(exported.count) domains to:\n\(backupDir.path)"
-                } else {
-                    alertTitle = "Backup Completed with Warnings"
-                    alertMessage = "Exported \(exported.count) domains.\n\nSkipped:\n" + errors.joined(separator: "\n")
-                }
-                showAlert = true
-            }
-        }
-    }
+        Task {
+            let result = await Task.detached(priority: .userInitiated) {
+                BackupManager.createBackup(keysByDomain: keysByDomain)
+            }.value
+            backupManager.reloadDomainBackups()
+            isWorking = false
 
-    private func restoreAll() {
-        let backupDir = backupManager.domainBackupURL
-        let domainCount = backupManager.backedUpDomains.count
-        workingMessage = "Restoring \(domainCount) domains…"
-        isWorking = true
-        Task.detached(priority: .userInitiated) {
-            let (restored, errors) = await backupManager.importDomains(from: backupDir)
-            await MainActor.run {
-                isWorking = false
-                if errors.isEmpty {
-                    alertTitle = "Restore Complete"
-                    alertMessage = "Successfully restored \(restored.count) domains."
-                } else {
-                    alertTitle = "Restore Completed with Warnings"
-                    alertMessage = "Restored \(restored.count) domains.\n\nFailed:\n" + errors.joined(separator: "\n")
-                }
-                showAlert = true
+            let skipped = result.errors.isEmpty ? "" : "\n\nSkipped:\n" + result.errors.joined(separator: "\n")
+            if let backup = result.backup {
+                alertTitle = result.errors.isEmpty ? "Backup Complete" : "Backup Completed with Warnings"
+                alertMessage = "Saved \(backup.manifest.domains.count) domains to:\n\(backup.folder.path)\n\nEarlier backups are kept — choose one under Restore…" + skipped
+            } else {
+                alertTitle = "Backup Failed"
+                alertMessage = "No domain could be exported." + skipped
             }
+            showAlert = true
         }
     }
 }
