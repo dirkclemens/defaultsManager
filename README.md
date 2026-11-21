@@ -1,6 +1,6 @@
 # defaultsManager
 
-defaultsManager is a native macOS app for browsing, editing, backing up, and restoring hidden macOS `defaults` settings — the same preferences power users normally manage via the `defaults` command-line tool. It ships with a curated, documented database of 234 settings across 25 categories and 51 domains, so you can find and change a setting without hunting through blog posts and gists. Every change shows the exact `defaults write` command before you apply it, and every setting can be backed up and restored individually or as a full system snapshot.
+defaultsManager is a native macOS app for browsing, editing, backing up, and restoring hidden macOS `defaults` settings — the same preferences power users normally manage via the `defaults` command-line tool. It ships with a curated, documented database of 232 settings across 25 categories and 51 domains, so you can find and change a setting without hunting through blog posts and gists. Every change shows the exact `defaults write` command before you apply it, and every setting can be backed up and restored individually or as a full system snapshot.
 
 > ⚠️ **Use with caution.** Changing system defaults can affect the stability and behavior of macOS. Always create a backup before making changes.
 
@@ -14,20 +14,20 @@ defaultsManager is a native macOS app for browsing, editing, backing up, and res
 
 ## Features
 
-- **Browse 234 curated settings** across 25 categories and 51 macOS domains
+- **Browse 232 curated settings** across 25 categories and 51 macOS domains
 - **3-column layout** — category → setting → detail
 - **Live system values** — reads the actual current value from your system
 - **Edit values** with context-aware controls (segmented toggle, radio buttons, text field)
 - **CLI command preview** — shows the exact `defaults write …` command for the current value with a one-click copy button
 - **Documented defaults** — each entry includes description, type, and the Apple-documented default value
-- **Global search** — search across all 234 settings simultaneously (key, domain, value, category, description)
-- **Favorites** — star any setting to save it; export all favorites as a ready-to-run shell script
+- **Global search** — search across all 232 settings simultaneously (key, domain, value, category, description), from anywhere in the app
+- **Favorites** — star any setting to save it; export the current values of all favorites as a ready-to-run shell script
 - **Session change history** — every setting changed during the current session is listed in one place, with before/after values
 - **Backup & Restore**
   - Per-entry backup/restore in the detail view
-  - Full-system backup via `defaults export` (one plist per domain)
-  - Full-system restore via `defaults import`
-- **Restart prompts** — after applying a change, the app tells you what needs to restart (Dock, Finder, SystemUIServer) and lets you do it with one click
+  - Full-system backups with timestamps (one plist per domain); earlier backups are kept
+  - Selective restore: pick a backup, review the differences, restore only the settings you choose — keys the app doesn't manage are never touched
+- **Restart prompts** — after applying a change, the app tells you what needs to restart (Dock, Finder, SystemUIServer, ControlCenter) and lets you do it with one click
 - **Sandbox detection** — settings that belong to containerised apps (Safari, Mail, TextEdit…) show a clear warning with a direct link to grant Full Disk Access if needed
 - **System Settings deep links** — jump directly to the related preference pane
 - **Source links** — each entry links to the community source where it was documented
@@ -61,7 +61,7 @@ defaultsManager is a native macOS app for browsing, editing, backing up, and res
 
 ### Prebuilt DMG
 
-A ready-to-run build is available as `defaultsManager.dmg` (ad-hoc signed, Apple Silicon only). Since it isn't notarized by Apple, macOS blocks it on first launch. Remove the quarantine flag before opening:
+A ready-to-run build is available on the [Releases](https://github.com/dirkclemens/defaultsManager/releases/latest) page as `defaultsManager.dmg` (ad-hoc signed, Apple Silicon only). Since it isn't notarized by Apple, macOS blocks it on first launch. Remove the quarantine flag before opening:
 
 ```bash
 xattr -dr com.apple.quarantine /Applications/defaultsManager.app
@@ -86,7 +86,7 @@ The sidebar also provides two smart views at the top:
 
 ### Searching
 
-Type in the search field (middle column) to search **all 234 settings** at once. Results are sorted A–Z and show a category pill so you always know where each setting lives. Clear the field to return to the selected category view.
+Type in the search field at the top of the sidebar to search **all 232 settings** at once — no matter whether a category, Favorites or Changed is selected. Results are sorted A–Z and show a category pill so you always know where each setting lives. Clear the field (or pick something in the sidebar) to return to the normal view.
 
 ### Editing a value
 
@@ -145,14 +145,14 @@ Steps to enable:
 | Back up a single setting | Detail view → *Backup Current Value* |
 | Restore a single setting | Detail view → *Restore* |
 | Back up all settings | Toolbar → *Backup All* |
-| Restore all settings | Toolbar → *Restore All* |
+| Restore from a full backup | Toolbar → *Restore…* |
 
-**Backup All** exports every domain as a `.plist` file to:
+**Backup All** creates a new timestamped folder with one `.plist` per domain plus a `manifest.json` listing the managed keys. Earlier backups are kept:
 ```
-~/Library/Application Support/defaultsManager/domain_backup/
+~/Library/Application Support/defaultsManager/domain_backups/2026-11-21_14-30-00/
 ```
 
-**Restore All** re-imports all exported plists via `defaults import`.
+**Restore…** opens a list of all backups. Select one to see every managed setting whose current value differs from the backup, tick the ones you want, and restore them. Each key is written individually with its original type (or deleted if it wasn't set at backup time) — other keys in the same domain stay untouched. Backups can be revealed in Finder or moved to the Trash from the same sheet. A backup from version 1.0.1 or older is migrated automatically on first launch.
 
 ### Editing the settings database
 
@@ -184,9 +184,9 @@ Click **Edit Parameters JSON** in the toolbar to reveal `macos-defaults.json` in
 | `all_values` | | Array of allowed values — rendered as radio buttons |
 | `sources` | | Array of reference URLs |
 | `settings_url` | | `x-apple.systempreferences:` deep link |
-| `restart_action` | | `Dock`, `Finder`, `SystemUIServer`, `logout`, or `none` |
+| `restart_action` | | `Dock`, `Finder`, `SystemUIServer`, `ControlCenter`, `logout`, or `none` |
 
-When the app updates, new entries are merged in automatically. Your existing entries and edits are never overwritten.
+When the app updates, new entries are merged in automatically and corrections to entries you never edited are applied. Your own entries and edits are never overwritten, and entries you deleted are not added again. If the file contains an error, the app shows what is wrong and falls back to the built-in list; fix the file and press **⌘R** to reload.
 
 ---
 
@@ -198,13 +198,14 @@ defaultsManager/
 ├── DefaultsStore.swift         # Loads & merges JSON; exposes entries, categories, search
 ├── SessionStore.swift          # In-memory change history for the current session
 ├── FavoritesStore.swift        # Persistent favorites (UserDefaults); shell script export
-├── BackupManager.swift         # Per-entry and full-domain backup/restore
+├── BackupManager.swift         # Per-entry backup; timestamped full backups, diff & selective restore
 ├── ApplyManager.swift          # Wraps `defaults read/write`; detects container/FDA issues
 ├── RestartActionResolver.swift # Maps entries → restart actions; performs kill(pid, SIGTERM)
 ├── SettingsURLResolver.swift   # Maps domains → System Settings deep links
-├── ContentView.swift           # Root NavigationSplitView + toolbar + progress modal
+├── ContentView.swift           # Root NavigationSplitView, global search, toolbar, sheets
+├── RestoreBackupView.swift     # Backup picker with per-key diff and selective restore
 ├── DomainListView.swift        # Left column — Favorites, Changed, and category list
-├── KeyListView.swift           # Middle column — searchable entry list with indicators
+├── KeyListView.swift           # Middle column — category / search result list with indicators
 ├── DetailView.swift            # Right column — value, editor, CLI preview, backup, restart
 ├── ChangedView.swift           # Session change history with before/after diff
 └── FavoritesView.swift         # Favorites list with export toolbar
